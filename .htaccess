@@ -1,0 +1,10 @@
+RewriteEngine On
+
+RewriteCond %{SERVER_PORT} 80      
+RewriteCond %{HTTP_HOST} ^blottify\.com$ [OR]
+RewriteCond %{HTTP_HOST} ^www\.blottify\.com$ 
+RewriteRule ^(.*)$ https://www.blottify.com/$1 [R,L]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteRule ^(.+)$ index.php?url=$1 [QSA,L]

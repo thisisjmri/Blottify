@@ -1,0 +1,70 @@
+@charset "UTF-8";
+
+/**
+ * Custom CSS for the FingerPrint Web App
+ * @authors Dahir Muhammad Dahir (dahirmuhammad3@gmail.com)
+ * @date    2020-04-12 21:33:47
+ * @version 1.0.0
+ */
+
+#controls {
+    margin-top: 100px;
+}
+
+.iconic {
+        display: inline-block;
+        width: 150px;
+        height: 150px;
+        background-size: cover;
+}
+
+
+.icon-indexfinger-not-enrolled{
+    background-image: url("/BLOTTIFY/public/img/illustrations/1.png");
+}
+
+.icon-indexfinger-enrolled{
+    background-image: url("/BLOTTIFY/public/img/illustrations/3.png");
+}
+
+.icon-middlefinger-not-enrolled{
+    background-image: url("/BLOTTIFY/public/img/illustrations/1.png");
+}
+
+.icon-middlefinger-enrolled{
+    background-image: url("/BLOTTIFY/public/img/illustrations/3.png");
+}
+
+.capture-indexfinger{
+    animation-duration: 1000ms;
+    animation-name: blink-index-finger;
+    animation-iteration-count: infinite;
+
+}
+
+.capture-middlefinger{
+    animation-duration: 1000ms;
+    animation-name: blink-middle-finger;
+    animation-iteration-count: infinite;
+}
+
+@keyframes blink-index-finger{
+    from{
+        background-image: url("/BLOTTIFY/public/img/illustrations/1.png");
+    } to{
+        background-image: url("/BLOTTIFY/public/img/illustrations/2.png");
+    }
+
+
+}
+
+@keyframes blink-middle-finger{
+    from{
+        background-image: url("/BLOTTIFY/public/img/illustrations/1.png");
+    } to{
+        background-image: url("/BLOTTIFY/public/img/illustrations/2.png");
+    }
+
+
+}
+
