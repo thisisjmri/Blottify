@@ -1,5 +1,4 @@
 <?php
-require 'PHPMailer/class.phpmailer.php';
 
 class Forget_Password_Model extends Model{
 	
@@ -18,10 +17,8 @@ class Forget_Password_Model extends Model{
 
 	    if(!empty($result)){
 	        // Email exists in database
-	        $id = $result['id'];
 	        $yes = $result['fullname'];
-            // session_start();
-	        Session::set('resetId',$id);
+	        Session::set('resetId',$result['id']);
 	    } 
 
 	    echo $yes;
@@ -36,27 +33,20 @@ class Forget_Password_Model extends Model{
 		for ($i = 0; $i < 6; $i++) {
 		  $otp .= $string[rand(0, $len - 1)];
 		}
-		
-		
-		
-        $session_id = session_id();
-        // $_SESSION[$session_id]['resetId'];
-        $id = $_SESSION['resetId'];
+
+        $id = Session::get("resetId");
 
 		$dbh = new Database();
 		$stmt = $dbh->prepare("SELECT * FROM `users` WHERE `id`= :id");
 		$stmt->execute(compact('id'));
 
 		$result = $stmt->fetch(PDO::FETCH_ASSOC);
-// 		var_dump($result);
 
 		if(empty($result)){
 			echo "Error in fetching";
 		}
 		else{
-        // 	$mail->AddAddress($email);
-		    
-// 			$to      = $result['email'];
+			$to      = $result['email'];
 			$subject = 'Blottify OTP Login Verification'; //change to blottify
 			 
 			// To send HTML mail, the Content-type header must be set
@@ -69,7 +59,7 @@ class Forget_Password_Model extends Model{
 			    'X-Mailer: PHP/' . phpversion();
 			 
 			// Compose a simple HTML email message
-			$msg = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+			$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 			<html xmlns="http://www.w3.org/1999/xhtml">
 
 			<head>
@@ -116,33 +106,9 @@ class Forget_Password_Model extends Model{
 			</body>
 
 			</html>';
-    
-            $mail = new PHPMailer(true); 
-    
-        	$mail->IsSMTP();                           
-        	$mail->SMTPAuth   = false;                 
-        	$mail->Port       = 25;                    
-        	$mail->Host       = "localhost"; 
-        	$mail->Username   = "jbbangga@usep.edu.ph";   
-        	$mail->Password   = "Letsgonadayon123!";            
-        
-        	$mail->IsSendmail();  
-        
-        	$mail->From       = "jbbangga@usep.edu.ph";
-        	$mail->FromName   = "blottify.com";
-            
-        	$mail->AddAddress($result['email']);
-            $mail->Subject  = $subject;
-        	$mail->WordWrap   = 80; 
-        
-            $mail->MsgHTML($msg);
-        	$mail->IsHTML(true); 
-			
-			ini_set("sendmail_path", "/usr/sbin/sendmail -t -i");
 			 
 			// Sending email
-			//mail($to, $subject, $message, $headers)
-			if($mail->Send()){
+			if(mail($to, $subject, $message, $headers)){
 			    Session::set("otp", $otp);
 			} else{
 			    echo 'failed';

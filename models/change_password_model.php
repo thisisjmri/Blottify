@@ -44,7 +44,7 @@ class Change_Password_Model extends Model{
 		        $encrypted = openssl_encrypt($raw, AES_256_CBC, $encryption_key, 0, $iv);
 		        $encrypted = $encrypted . ':' . base64_encode($iv);
 
-		        $stmt1 = $dbh->prepare("UPDATE `users` SET `password`=:npass, `is_locked` = 0 WHERE `id`= :id");
+		        $stmt1 = $dbh->prepare("UPDATE `users` SET `password`=:npass WHERE `id`= :id");
 		        $stmt1->bindParam('npass', $encrypted);
 		        $stmt1->bindParam('id', $id);
 		        $stmt1->execute();

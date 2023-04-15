@@ -19,7 +19,6 @@ class Dashboardss extends Controller{
 	function index(){
 		$this->view->getBlotter = $this->model->getBlotter();
 		$this->view->getBlotter1 = $this->model->getBlotter1();
-		$this->view->getBlotter2 = $this->model->getBlotter2();
 		$this->view->getNotif = $this->model->getNotif();
 		$this->view->getStation = $this->model->getStation();
 		$this->view->getRank = $this->model->getRank();

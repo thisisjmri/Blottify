@@ -14,10 +14,6 @@ class Dashboardss_Model extends Model{
         $station_id = Session::get("station_id");
 		return $this->db->select("SELECT * FROM `blotter` WHERE `station_id` = '$station_id' GROUP BY `dt_reported` DESC LIMIT 5");
 	}
-	
-	public function getBlotter2(){
-		 return $this->db->select("SELECT * FROM `blotter` WHERE YEAR(`dt_reported`) = YEAR(NOW())");
-	}
 
 	public function getNotif(){
 		 return $this->db->select("SELECT * FROM `notification`");
@@ -41,165 +37,76 @@ class Dashboardss_Model extends Model{
 	}
 
 	public function getNotifications(){
-        $admin_id = Session::get("admin_id");
-        $station_id = Session::get("station_id");
-        $notifications = [];
-        $color = "";
-        $diff_string;
-        $i=0;
-        $today = new DateTime("now", new DateTimeZone('Asia/Manila'));
+		$admin_id = Session::get("admin_id");
+		$station_id = Session::get("station_id");
+		$notifications = [];
+		$i=0;
+		$today = new DateTime("now", new DateTimeZone('Asia/Manila'));
 
-        $dbh = new Database();
-        $stmt = $dbh->prepare("SELECT * FROM `notification` WHERE `user_id` = :admin_id ORDER BY `date_time` DESC LIMIT 6");
-        $stmt->execute(compact('admin_id'));
+		$dbh = new Database();
+		$stmt = $dbh->prepare("SELECT * FROM `station` WHERE `id`= :station_id");
+        $stmt->execute(compact('station_id'));
 
-        while ($result = $stmt->fetch(PDO::FETCH_ASSOC)) {
-            if($result['is_read']==0){
-                $color = "#bfcddb";
-            }
-            $logchecker = "forward blotter: Case #".$result['blotter_id'];
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            $stmt1 = $dbh->prepare("SELECT * FROM `logger` WHERE `activity`= :logchecker");
-            $stmt1->execute(compact('logchecker'));
+        if(!empty($result)){
+        	$station_name = $result['station_name'];
 
-            $result1 = $stmt1->fetch(PDO::FETCH_ASSOC);
+        	$stmt2 = $dbh->prepare("SELECT * FROM `users` WHERE `station_id`= :station_id");
+	        $stmt2->execute(compact('station_id'));
 
-            if(!empty($result1)){
-                $forwardedBy = $result1['user_id'];
-                $date_time = $result1['date_time'];
+	        $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
 
-                $interval = $today->diff(new DateTime($date_time));
-
-                if ($interval->y > 0) {
-                    $diff_string = $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
-                } elseif ($interval->m > 0) {
-                    $diff_string = $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
-                } elseif ($interval->d > 0) {
-                    $diff_string = $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
-                } elseif ($interval->h > 0) {
-                    $diff_string = $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
-                } elseif ($interval->i > 0) {
-                    $diff_string = $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
-                } else {
-                    $diff_string = $interval->s . ' second' . ($interval->s > 1 ? 's' : '') . ' ago';
-                }
-
-                $stmt2 = $dbh->prepare("SELECT * FROM `users` WHERE `id`= :forwardedBy");
-                $stmt2->execute(compact('forwardedBy'));
-
-                $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-
-                if(!empty($result2)){
-                    $station_id = $result2['station_id'];
-
-                    $stmt3 = $dbh->prepare("SELECT * FROM `station` WHERE `id`= :station_id");
-                    $stmt3->execute(compact('station_id'));
-
-                    $result3 = $stmt3->fetch(PDO::FETCH_ASSOC);
-
-                    if(!empty($result3)){
-                        $station_name = $result3['station_name'];
-
-                        $notifications[$i]['color'] = $color;
-                        $notifications[$i]['isread'] = $result['is_read'];
-                        $notifications[$i]['image'] = $result2['image'];
-                        $notifications[$i]['fullname'] = $result2['fullname'];
-                        $notifications[$i]['blotter_id'] = $result['blotter_id'];
-                        $notifications[$i]['station_name'] = $station_name;
-                        $notifications[$i]['time'] = $diff_string;
-                        $i++;
-                    }
-                }
-            }
-        }
-
-        if(!empty($notifications)){
-            echo json_encode($notifications);
-        }
-        else{
-            echo "[]";
-        }
-
+	        if(!empty($result2)){
+	        	$fullname = $result2['fullname'];
+	        	$image = $result2['image'];
         
+				$stmt1 = $dbh->prepare("SELECT * FROM `notification` WHERE `user_id` = :admin_id ORDER BY `date_time` DESC LIMIT 6");
+				$stmt1->execute(compact('admin_id'));
 
+				while ($result1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
+					//get time
+					// $notifications[] = $row;
+					$date_time = $result1['date_time'];
+					$interval = $today->diff(new DateTime($date_time));
 
+					if ($interval->y > 0) {
+					    $diff_string = $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
+					} elseif ($interval->m > 0) {
+					    $diff_string = $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
+					} elseif ($interval->d > 0) {
+					    $diff_string = $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
+					} elseif ($interval->h > 0) {
+					    $diff_string = $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
+					} elseif ($interval->i > 0) {
+					    $diff_string = $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
+					} else {
+					    $diff_string = $interval->s . ' second' . ($interval->s > 1 ? 's' : '') . ' ago';
+					}
+					$color = "";
+					if($result1['is_read']==0){
+						$color = "#bfcddb";
+					}
 
+					$notifications[$i]['color'] = $color;
+					$notifications[$i]['isread'] = $result1['is_read'];
+					$notifications[$i]['image'] = $image;
+					$notifications[$i]['fullname'] = $fullname;
+					$notifications[$i]['blotter_id'] = $result1['blotter_id'];
+					$notifications[$i]['station_name'] = $station_name;
+					$notifications[$i]['time'] = $diff_string;
+					$i++;
+				}
 
-
-
-
-
-        
-		// $admin_id = Session::get("admin_id");
-		// $station_id = Session::get("station_id");
-		// $notifications = [];
-		// $i=0;
-		// $today = new DateTime("now", new DateTimeZone('Asia/Manila'));
-
-		// $dbh = new Database();
-		// $stmt = $dbh->prepare("SELECT * FROM `station` WHERE `id`= :station_id");
-  //       $stmt->execute(compact('station_id'));
-
-  //       $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-  //       if(!empty($result)){
-  //       	$station_name = $result['station_name'];
-
-  //       	$stmt2 = $dbh->prepare("SELECT * FROM `users` WHERE `station_id`= :station_id");
-	 //        $stmt2->execute(compact('station_id'));
-
-	 //        $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
-
-	 //        if(!empty($result2)){
-	 //        	$fullname = $result2['fullname'];
-	 //        	$image = $result2['image'];
-        
-		// 		$stmt1 = $dbh->prepare("SELECT * FROM `notification` WHERE `user_id` = :admin_id ORDER BY `date_time` DESC LIMIT 6");
-		// 		$stmt1->execute(compact('admin_id'));
-
-		// 		while ($result1 = $stmt1->fetch(PDO::FETCH_ASSOC)) {
-		// 			//get time
-		// 			// $notifications[] = $row;
-		// 			$date_time = $result1['date_time'];
-		// 			$interval = $today->diff(new DateTime($date_time));
-
-		// 			if ($interval->y > 0) {
-		// 			    $diff_string = $interval->y . ' year' . ($interval->y > 1 ? 's' : '') . ' ago';
-		// 			} elseif ($interval->m > 0) {
-		// 			    $diff_string = $interval->m . ' month' . ($interval->m > 1 ? 's' : '') . ' ago';
-		// 			} elseif ($interval->d > 0) {
-		// 			    $diff_string = $interval->d . ' day' . ($interval->d > 1 ? 's' : '') . ' ago';
-		// 			} elseif ($interval->h > 0) {
-		// 			    $diff_string = $interval->h . ' hour' . ($interval->h > 1 ? 's' : '') . ' ago';
-		// 			} elseif ($interval->i > 0) {
-		// 			    $diff_string = $interval->i . ' minute' . ($interval->i > 1 ? 's' : '') . ' ago';
-		// 			} else {
-		// 			    $diff_string = $interval->s . ' second' . ($interval->s > 1 ? 's' : '') . ' ago';
-		// 			}
-		// 			$color = "";
-		// 			if($result1['is_read']==0){
-		// 				$color = "#bfcddb";
-		// 			}
-
-		// 			$notifications[$i]['color'] = $color;
-		// 			$notifications[$i]['isread'] = $result1['is_read'];
-		// 			$notifications[$i]['image'] = $image;
-		// 			$notifications[$i]['fullname'] = $fullname;
-		// 			$notifications[$i]['blotter_id'] = $result1['blotter_id'];
-		// 			$notifications[$i]['station_name'] = $station_name;
-		// 			$notifications[$i]['time'] = $diff_string;
-		// 			$i++;
-		// 		}
-
-		// 		echo json_encode($notifications);
-		// 	}
-		// 	else{
-		// 		echo "[]";
-		// 	}
-		// }
-		// else{
-		// 	echo "[]";
-		// }	
+				echo json_encode($notifications);
+			}
+			else{
+				echo "[]";
+			}
+		}
+		else{
+			echo "[]";
+		}	
     }
 
     public function getCount(){
@@ -391,8 +298,6 @@ class Dashboardss_Model extends Model{
 
         $arr = [];
         $column_names = array();
-        $station_name;
-        $station_number;
 
         $dbh = new Database(); 
         $stmt = $dbh->prepare("SHOW COLUMNS FROM `blotter`");
@@ -409,7 +314,7 @@ class Dashboardss_Model extends Model{
         $result1 = $stmt1->fetch(PDO::FETCH_ASSOC);
 
         if(empty($result1)){
-            echo "1NOT FOUND";
+            echo "NOT FOUND";
         }
         else{
             $type_incident = $result1['type_incident'];
@@ -424,7 +329,7 @@ class Dashboardss_Model extends Model{
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
             if(empty($result)){
-                echo "2NOT FOUND";
+                echo "NOT FOUND";
             }
             else{
                 $crime_name = $result['crime_name'];
@@ -437,7 +342,7 @@ class Dashboardss_Model extends Model{
             $result3 = $stmt3->fetch(PDO::FETCH_ASSOC);
 
             if(empty($result3)){
-                echo "3NOT FOUND";
+                echo "NOT FOUND";
             }
             else{
                 $d_policeuser = $result3['fullname'];
@@ -449,7 +354,7 @@ class Dashboardss_Model extends Model{
                 $result4 = $stmt4->fetch(PDO::FETCH_ASSOC);
 
                 if(empty($result4)){
-                    echo "4NOT FOUND";
+                    echo "NOT FOUND";
                 }
                 else{
                     $station_name = $result4['station_name'];
@@ -464,7 +369,7 @@ class Dashboardss_Model extends Model{
             $result2 = $stmt2->fetch(PDO::FETCH_ASSOC);
 
             if(empty($result2)){
-                echo "5NOT FOUND";
+                echo "NOT FOUND";
             }
             else{
                 $barangay_name = $result2['barangay_name'];

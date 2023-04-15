@@ -1,5 +1,4 @@
-    function displayNotifications(notifications) {
-      console.log("displayNotifications");
+function displayNotifications(notifications) {
       var container = document.getElementById("notifications-container");
       container.innerHTML = "";
       notifications.forEach(function(notification) {
@@ -12,11 +11,6 @@
         html += "</div></a></li>";
         container.innerHTML += html;
       });
-      
-       var html = "<li class='mb-2'>";
-       html += "<a href='all_notification'><div class='text-center text-dark cursor-pointer text-bolder'>See all notification</div></a></li>";
-       container.innerHTML += html;
-
     }
 
     function getNotifications() {
@@ -42,12 +36,12 @@
     setInterval(() => {
       getNotifications()
         .then((notifications) => {
-          console.log(notifications);
+          // console.log(notifications);
         })
         .catch((error) => {
           console.log(error);
         });
-    }, 5000);
+    }, 2000);
 
     function updateBadge(count) {
       var badge = document.getElementById("notification-badge");
@@ -57,7 +51,7 @@
           url: "dashboardss/getCount",
           success: function(response) {
             var notifications = response;
-            // console.log(notifications);
+            console.log(notifications);
             badge.innerText = notifications;
             if (notifications > 0) {
               badge.classList.add("badge");

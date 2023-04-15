@@ -18,10 +18,21 @@ class User_Account extends Controller{
 
 	function index(){
 		$this->view->getStation = $this->model->getStation();
-		$this->view->getRank = $this->model->getRank();
 		$this->view->getUser = $this->model->getUser();
 
 		$this->view->render('user_account/index');
+	}
+
+	function addStation(){
+		Session::init();
+		$admin_id = Session::get("admin_id");
+		$data = array();
+		$data['stname'] = $_POST['stname'];
+		$data['staddress'] = $_POST['staddress'];
+		$data['sttype'] = $_POST['sttype'];
+		$data['stanumber'] = $_POST['stanumber'];
+		$data['admin_id'] = $admin_id;
+		$this->model->addStation($data);
 	}
 
 	function addUser(){
@@ -42,11 +53,6 @@ class User_Account extends Controller{
 	function checkUsername(){
 		$data = $_POST['user_name'];
 		$this->model->checkUsername($data);
-	}
-
-	function checkEmail(){
-		$data = $_POST['email'];
-		$this->model->checkEmail($data);
 	}
 	
 	function logout(){

@@ -23,7 +23,7 @@ $(document).ready(function(){
           cfilter:cfilter,
           daily:daily,
           monthly:monthly,
-          annual1:annual1,
+          annual1:annual1
         },
         cache: false,
         success:function(response){

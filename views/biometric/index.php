@@ -82,11 +82,10 @@ body {
                  <select name="readerSelect" id="verifyReaderSelect" class="form-control mb-4">
                     <option selected>Choose a Fingerprint Reader</option>
                  </select>
-                 <?php
-                    $admin_id = Session::get("admin_id");?>
-                    //<?php echo $admin_id ?>
-                 <input type="hidden" id="userIDVerify" class="form-control" value="576883159572504581">
-                 <input type="hidden" id="userID" class="form-control" value="576883159572504581">
+                 <?php 
+                    $admin_id = Session::get("admin_id"); ?>
+                 <input type="hidden" id="userIDVerify" class="form-control" value="<?php echo $admin_id ?>">
+                 <input type="hidden" id="userID" class="form-control" value="<?php echo $admin_id ?>">
                  <input type="hidden" id="kind" value="identify">
                  
                 </div>
@@ -636,11 +635,7 @@ z"></path>
             x.type = "password";
           }
         }
-        var id = document.getElementById("userIDVerify").value;
-        $(document).ready(function(){
-            beginIdentification();
-        console.log("id:"+id);
-        });
+        beginIdentification();
   </script>
 </body>
 </html>

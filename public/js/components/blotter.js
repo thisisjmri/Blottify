@@ -110,7 +110,7 @@ c_civil.addEventListener("change", (event) => {
     for_civil2 = 1;
 
   console.log(`Selected option: ${event.target.value}`);
-  console.log(for_civil2);
+  console.log(for_ccivil);
   // Do something when the dropdown value changes
 });
 
@@ -121,6 +121,65 @@ c_sex.addEventListener("change", (event) => {
   console.log(for_sex2);
   // Do something when the dropdown value changes
 });
+
+//REFLECT PLACE OF INCIDENT ON ITEM D
+// $(document).ready(function(){
+//     $('#brgy_incident').on("change", function(){
+//         var id = $('#brgy_incident').val();
+//         var place_incident = $('#place_incident').val();
+//         if(id != null){
+//             $.ajax({
+//                 url:'blotter/getBrgy',
+//                 type: 'post',
+//                 data: {
+//                     id : id
+//                 },
+//                 cache: false,
+//                 success: function(server_reply) {
+//                     document.getElementById("d_pincident").value = place_incident +", "+ server_reply;
+//                 },
+//                 error: function(xhr, status, error) {
+//                     alert('Cannot do action: '+console.error(xhr));
+//                 }
+//             });
+//         }
+//     });
+//     $('#place_incident').on("keyup", function(){
+//         var id = $('#brgy_incident').val();
+//         var place_incident = $('#place_incident').val();
+//         $.ajax({
+//             url:'blotter/getBrgy',
+//             type: 'post',
+//             data: {
+//                 id : id
+//             },
+//             cache: false,
+//             success: function(server_reply) {
+//                 document.getElementById("d_pincident").value = place_incident +", "+ server_reply;
+//             },
+//             error: function(xhr, status, error) {
+//                 alert('Cannot do action: '+console.error(xhr));
+//             }
+//         });
+//     });
+//     $('#type_incident').on("change", function(){
+//         var id = $('#type_incident').val();
+//         $.ajax({
+//             url:'blotter/getTypeOfIncident',
+//             type: 'post',
+//             data: {
+//                 id : id
+//             },
+//             cache: false,
+//             success: function(server_reply) {
+//                 document.getElementById("d_type").value = server_reply;
+//             },
+//             error: function(xhr, status, error) {
+//                 alert('Cannot do action: '+console.error(xhr));
+//             }
+//         });
+//     });
+// });
 
 
 
@@ -145,6 +204,37 @@ $(document).ready(function(){
     }
 });
 
+
+
+
+
+// //ASSIGNING IRF ID
+// $(document).ready(function(){
+// 	assignIRF();
+// 	function assignIRF() {
+// 		$.ajax({
+// 			url:'blotter/getIRFID',
+// 			type: 'post',
+// 			 cache: false,
+// 			 success: function(server_reply) {
+// 			  if(!isNaN(server_reply)){
+// 		            document.getElementById("irfid").value = server_reply;
+// 		      }else{
+// 		        alert(server_reply);
+// 		      }
+// 			 },
+// 			 error: function(xhr, status, error) {
+// 			 alert('Cannot do action: '+console.error(xhr));
+// 			 }
+// 		});
+// 	}
+// });
+
+
+  // const phoneInput = document.getElementById('phone');
+  // phoneInput.addEventListener('input', () => {
+  //   phoneInput.value = phoneInput.value.replace(/[^0-9]/g, '');
+  // });
 
 
 //CHECKING ITEM A
@@ -365,6 +455,7 @@ $(document).ready(function(){
 $(document).ready(function(){
     $('#saveblotter').on("click", function(){
 
+      console.log("uwu");
       	//ITEM A
       	var irfid = $('#irfid').val();
         var type_incident = $('#type_incident').val();
@@ -444,6 +535,7 @@ $(document).ready(function(){
         }
 
         var influence = selectedInfluence.join(", ");
+        console.log(influence);
 
         //ITEM C
         var c_lastname = $('#c_lastname').val();
@@ -576,21 +668,11 @@ $(document).ready(function(){
                 contentType: false,
                 processData: false,
                 success: function(data) {
-                    console.log(data);
-                    if(data==" success"){
-                        Swal.fire("SUCCESS!","Blotter Added Successfully", "success")
-                          .then((value)=>{
-                          if (value){
-                            window.location='blotter';
-                          }
-                        });
+                    if(data=="success"){
+                        alert("Blotter added successfully");
                     }
                     else{
-                        Swal.fire(
-                          'Error!',
-                          'There seems to be a problem.',
-                          'error'
-                        )
+                        console.log(data);
                     }
                 },
                 error: function(xhr, status, error) {

@@ -1,5 +1,4 @@
     function displayNotifications(notifications) {
-      console.log("displayNotifications");
       var container = document.getElementById("notifications-container");
       container.innerHTML = "";
       notifications.forEach(function(notification) {
@@ -12,11 +11,6 @@
         html += "</div></a></li>";
         container.innerHTML += html;
       });
-      
-       var html = "<li class='mb-2'>";
-       html += "<a href='all_notification'><div class='text-center text-dark cursor-pointer text-bolder'>See all notification</div></a></li>";
-       container.innerHTML += html;
-
     }
 
     function getNotifications() {
@@ -25,7 +19,7 @@
           type: "post",
           url: "dashboardss/getNotifications",
           success: function(response) {
-            console.log(response);
+            // console.log(response);
             var notifications = JSON.parse(response);
             displayNotifications(notifications);
             updateBadge(notifications.length);
@@ -42,7 +36,7 @@
     setInterval(() => {
       getNotifications()
         .then((notifications) => {
-          console.log(notifications);
+          // console.log(notifications);
         })
         .catch((error) => {
           console.log(error);

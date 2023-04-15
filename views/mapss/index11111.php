@@ -45,7 +45,6 @@
       <link rel="stylesheet" href="public/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
       <link rel="stylesheet" href="public/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
       <link rel="stylesheet" href="public/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-xxxxxxx" crossorigin="anonymous" />
 </head>
 <style>
 body {
@@ -184,83 +183,10 @@ body {
     justify-content: center;
     align-items: center;
   }
-  #example9_wrapper .dataTables_paginate {
-  display: flex;
-  justify-content: center;
-   font-size: 12px; /* Set the font size to a smaller value, e.g., 12px */
-  padding: 3px 5px; /* Add padding to the buttons for better appearance */
-}
-  .floating-circle {
-  position: fixed;
-  top: 0;
-  right: 0;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  z-index: 1;
-}
-
-.circle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-.fa-filter {
-  color:#3A416F;
-  font-size: 24px;
-}
-
-.side-panel {
-  position: fixed;
-  top: 0;
-  right: -250px;
-  width: 156px;
-  height: auto;
-  transition: right 0.3s ease;
-  z-index: 9999;
-}
-
-.side-panel.open {
-  right: 0;
-}
-
-.close-button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  width: 30px;
-  height: 30px;
-  color: #007bff;
-  font-size: 20px;
-  border: none;
-  cursor: pointer;
-}
-.form-select-sm {
-  font-size: 12px; /* Custom font size for smaller dropdown */
-  height: auto; /* Custom height for smaller dropdown */
-  padding-top: 4px; /* Custom padding top for smaller dropdown */
-  padding-bottom: 4px; /* Custom padding bottom for smaller dropdown */
-}
-
-.form-control-sm {
-  font-size: 12px; /* Custom font size for smaller input */
-  height: auto; /* Custom height for smaller input */
-  padding: 4px 10px; /* Custom padding for smaller input */
-}
-
-.btn {
-  font-size: 12px; /* Custom font size for smaller button */
-  padding: 4px 8px; /* Custom padding for smaller button */
-}
-
    </style>
 <body>
         <!-- Navbar -->
-        <!--  <nav id="navbarr" style="overflow: hidden;" class="position-fixed top-0 end-0 navbar blur border-radius-lg top-0 z-index-3 shadow p-1 my-3 px-2 mx-3">
+         <nav id="navbarr" style="overflow: hidden;" class="position-fixed top-0 end-0 navbar blur border-radius-lg top-0 z-index-3 shadow p-1 my-3 px-2 mx-3">
 
             <button class="btn-lg navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon mt-2 col-sm-1">
@@ -311,7 +237,7 @@ body {
                 </li>
               </ul>
           </div>
-        </nav> -->
+        </nav>
   <!-- id - buttonF -->
 <div class="floating-circle blur my-3 mx-3" id="floatingCircle">
   <span class="circle" >
@@ -319,11 +245,20 @@ body {
   </span>
 </div>
 <!-- ID - navbarr -->
-<div id="navbarr" class="side-panel blur mt-2 mx-3 border-radius-sm">
+<div class="side-panel blur mt-2 mx-3 border-radius-sm" id="sidePanel">
   <div class="side-panel-header mx-2 mt-2">
     <label class="side-panel-title">Filter</label>
     <button class="close-button" id="closeButton">&times;</button>
   </div>
+    <div class="px-2 justify-content-center">
+    <label class="m-0 mx-1" for="crime">Filter Type</label>
+    <select id="crime" class="form-select form-select-sm"> <!-- Added 'form-select-sm' class for smaller size -->
+       <option value="all">Daily</option>
+       <option value="all">Monthly</option>
+       <option value="all">Annual</option>
+       <option value="all">Custom</option>
+    </select>
+ </div>
   <div class="px-2 justify-content-center">
     <label class="m-0 mx-1" for="crime">Crime Type</label>
     <select id="crime" class="form-select form-select-sm"> <!-- Added 'form-select-sm' class for smaller size -->
@@ -337,37 +272,28 @@ body {
         ?>
     </select>
  </div>
-    <div class="px-2 justify-content-center">
-    <label class="m-0 mx-1" for="crime">Filter Type</label>
-    <select id="cfilter" name="cfilter" class="form-select form-select-sm"> <!-- Added 'form-select-sm' class for smaller size -->
-       <option value="daily">Daily</option>
-       <option value="monthly">Monthly</option>
-       <option value="annual1">Annual</option>
-       <option value="custom">Custom</option>
-    </select>
- </div>
- <div id="dailylabel" name="dailylabel" class="px-2">
+ <div class="px-2">
   <label class="m-0" for="start">Select a date:</label>
   <input type="date" class="form-control form-control-sm px-2" id="daily" > <!-- Added 'form-control-sm' class for smaller size -->
  </div>
 
-  <div id="monthlylabel" name="monthlylabel" class="px-2">
+  <div class="px-2">
   <label class="m-0" for="start">Select a month:</label>
-  <input type="month" class="form-control form-control-sm px-2" id="monthly" min="2022-01"> <!-- Added 'form-control-sm' class for smaller size -->
+  <input type="month" class="form-control form-control-sm px-2" id="monthly"> <!-- Added 'form-control-sm' class for smaller size -->
  </div>
 
-  <div id="annual1label" name="annual1label" class="px-2">
+  <div class="px-2">
     <label class="m-0" style="font-family: 'Quicksand';" >Pick a year:</label>
-    <select class="form-select form-control-sm" id="annual1">
+    <select id="annual1" class="form-select form-control-sm">
     </select> 
  </div>
 
-  <div id="startlabel" name="startlabel" class="px-2">
+  <div class="px-2">
   <label class="m-0" for="start">Start Date:</label>
   <input type="date" class="form-control form-control-sm px-2" id="start" name="start" min="2022-01-01" > <!-- Added 'form-control-sm' class for smaller size -->
  </div>
 
- <div id="endlabel" name="endlabel" class="px-2">
+ <div class="px-2">
   <label class="m-0" for="end">End Date:</label>
   <input type="date" class="form-control form-control-sm px-2" id="end" name="end" min="2022-01-01"> <!-- Added 'form-control-sm' class for smaller size -->
  </div>
@@ -433,6 +359,31 @@ body {
   </aside>
   
     <div id="legend_container" class="position-fixed bottom-0 end-0 p-3" style="font-size: 12px;">
+      <div class="bg-light rounded blur shadow-sm p-3">       
+      <div class="d-flex flex-column align-items-start">
+        <div class="d-flex align-items-center mb-2 text-center justify-content-center ">
+          <div class="text-center pb-2">LEGEND</div>
+          <input type="text" id="hiddenzoom" value="0" hidden>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+          <div class="legend-box me-2" style="background-color: #bab8b8;"></div>
+          <span>No data</span>
+        </div>
+        <?php 
+
+        for($c=0; $c<count($this->getCrime); $c++){
+            echo "<div class='d-flex align-items-center mb-2'>
+            <div class='legend-box me-2' style='background-color: ".$this->getCrime[$c]['crime_color']."'></div>
+            <span>".$this->getCrime[$c]['crime_name']."</span>
+          </div>";
+        }
+
+        ?>
+
+      </div>
+      </div>
+    </div>
+    <div id="legend_container" class="position-fixed bottom-0 end-0 p-3" style="font-size: 12px;">
       <div class="bg-light rounded blur shadow-sm p-2">       
       <div class="d-flex flex-column align-items-start">
         <div class="d-flex align-items-center mb-2 text-center justify-content-center ">
@@ -458,14 +409,14 @@ body {
               </tr>";
       } 
               ?>
-              <!-- <tr>
+              <tr>
                 <td>
-                  <div class='d-flex align-items-center mb-0 py-2'>
-                      <i class="fas fa-map-marker-alt" style="color: red;"></i>
-                    <span>&nbsp; &nbsp;Location</span>
+                  <div class='d-flex align-items-center mb-0'>
+                    <div class="legend-box me-2" style="background-color: #bab8b8;"></div>
+                     <span>No data</span>
                   </div>
                 </td>
-              </tr>  -->
+              </tr> 
             </tbody>
           </table>
         </div>
@@ -628,22 +579,22 @@ body {
 
     <g transform="translate(148.78173828125,166.0639190673828) scale(0.2)">
        <path id="pagsabangan_loc1" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Pagsabangan Public Cemetery</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Pagsabangan Public Cemetery</text>
     </g>
 
     <g transform="translate(123.32809448242188,158.93130493164062) scale(0.2)">
        <path id="pagsabangan_loc2" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Esperanza </text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Esperanza </text>
     </g>
 
     <g transform=" translate(68.64471435546875,92.77980041503906)  scale(0.2)">
        <path id="pagsabangan_loc3" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Lourdes Dairy Farm</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Lourdes Dairy Farm</text>
     </g>
 
     <g transform="translate(129.20201110839844,102.15010070800781) scale(0.2)">
        <path id="pagsabangan_loc4" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Forum Japan Bike Surdlus </text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Forum Japan Bike Surdlus </text>
     </g>
 
     <!-- END FOR PAGSABANGAN -->
@@ -699,42 +650,42 @@ body {
 
     <g transform="translate(353.8094787597656,175.99363708496094) scale(0.1)">
        <path id="lafilipina_loc1" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="18">La Filipina Elem. School</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">La Filipina Elem. School</text>
     </g>
 
     <g transform="translate(375.7667236328125,175.29437255859375) scale(0.1)">
        <path id="lafilipina_loc2" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="18">La Filipina Evangelical Church</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">La Filipina Evangelical Church</text>
     </g>
 
     <g transform="translate(376.04644775390625,158.51174926757812)  scale(0.1)">
        <path id="lafilipina_loc3" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="18">Huyong-huyong Nature Park</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Huyong-huyong Nature Park</text>
     </g>
 
     <g transform=" translate(281.3644714355469,174.17552185058594)  scale(0.1)">
        <path id="lafilipina_loc4" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="18">BRIA Homes</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">BRIA Homes</text>
     </g>
 
     <g transform="translate(299.545654296875,167.8820343017578)  scale(0.1)">
        <path id="lafilipina_loc5" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="18">Orchard Road Memorial Park</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Orchard Road Memorial Park</text>
     </g>
 
     <g transform="translate(375.34716796875,143.12767028808594) scale(0.1)">
        <path id="lafilipina_loc6" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="18">Buhai Basketball Court</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Buhai Basketball Court</text>
     </g>
 
     <g transform="translate(341.502197265625,181.1682891845703)  scale(0.1)">
        <path id="lafilipina_loc7" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="18">Glaiza Pastry Shop</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Glaiza Pastry Shop</text>
     </g>
 
     <g transform="translate(371.5710754394531,190.53858947753906)  scale(0.1)">
        <path id="lafilipina_loc8" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="18">Marzee Burger Shop</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Marzee Burger Shop</text>
     </g>
 
     <!-- END FOR LA FILIPINA -->
@@ -744,38 +695,38 @@ body {
 
     <g transform="translate(461.21826171875,188.86032104492188) scale(0.1)">
        <path id="magdum_loc1" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="16">Tagum City Slaughterhouse</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Tagum City Slaughterhouse</text>
     </g>
 
     <g transform="translate(431.28924560546875,151.23927307128906) scale(0.1)">
        <path id="magdum_loc2" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="16">Botanical Park</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Botanical Park</text>
     </g>
     
     <g transform="translate(414.646484375,176.1334991455078) scale(0.1)">
        <path id="magdum_loc3" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="16">Mother Rosario School of Tagum</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Mother Rosario School of Tagum</text>
     </g>
 
 
     <g transform="translate(436.32403564453125,185.64364624023438) scale(0.1)">
        <path id="magdum_loc4" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="16">Saludares Elementrary School</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Saludares Elementrary School</text>
     </g>
 
     <g transform="translate(431.5689697265625,169.00088500976562)  scale(0.1)">
        <path id="magdum_loc5" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="16">Metro Tagum Shooters Range</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Metro Tagum Shooters Range</text>
     </g>
 
     <g transform="translate(397.5841369628906,207.88063049316406) scale(0.1)">
        <path id="magdum_loc6" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="16">Magdum Barangay Hall</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Magdum Barangay Hall</text>
     </g>
 
     <g transform="translate(449.33056640625,172.21755981445312) scale(0.1)">
        <path id="magdum_loc7" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="16">Mary's Wood</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Mary's Wood</text>
     </g>
 
     <!-- END OF MAGDUM -->
@@ -786,17 +737,17 @@ body {
 
     <g transform=" translate(329.7543640136719,37.117427825927734)  scale(0.1)">
        <path id="nuevafuerza_loc1" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="18">Mesaoy National High School</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Mesaoy National High School</text>
     </g>
 
     <g transform="translate(355.7674255371094,89.98269653320312)  scale(0.1)">
        <path id="nuevafuerza_loc2" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="18">Chalmergab Farm</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Chalmergab Farm</text>
     </g>
 
     <g transform="translate(367.2355651855469,86.48631286621094)  scale(0.1)">
        <path id="nuevafuerza_loc3" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="18">Nueva fuerza-svg Elementary School</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Nueva fuerza-svg Elementary School</text>
     </g>
    
     <!-- END OF NUEVA FUERZA -->
@@ -807,25 +758,25 @@ body {
 
     <g transform=" translate(416.3247375488281,115.71604919433594)  scale(0.1)">
        <path id="sanagustin_loc1" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="16">Shanksbucks Cafe </text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Shanksbucks Cafe </text>
     </g>
    
 
    <g transform="translate(413.8073425292969,89.84284210205078)   scale(0.1)">
        <path id="sanagustin_loc2" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="16">Waste Re-energizer Philppines</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Waste Re-energizer Philppines</text>
     </g>
    
 
    <g transform="translate(387.23486328125,117.53417205810547) scale(0.1)">
        <path id="sanagustin_loc3" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="16">San Agustin Barangay Hall</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">San Agustin Barangay Hall</text>
     </g>
    
 
    <g transform="translate(369.61309814453125,128.3030242919922)  scale(0.1)">
        <path id="sanagustin_loc4" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="16">San Agustin Elem. School</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">San Agustin Elem. School</text>
     </g>
    
    
@@ -835,17 +786,17 @@ body {
 
     <g transform="translate(417.58343505859375,59.4942626953125) scale(0.1)">
        <path id="newbalamban_loc1" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="22">Wildlife Rescue Center and Bird's Pack</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Wildlife Rescue Center and Bird's Pack</text>
     </g>
 
     <g transform="translate(464.8544921875,128.44287109375) scale(0.1)">
        <path id="newbalamban_loc2" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="22">New Balamban Elem. School</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">New Balamban Elem. School</text>
     </g>
 
     <g transform="translate(403.45806884765625,25.78915786743164) scale(0.1)">
        <path id="newbalamban_loc3" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="22">New Bohol Day Care Center </text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">New Bohol Day Care Center </text>
     </g>
 
     <!-- END FOR NEW BALAMBAN -->
@@ -854,22 +805,22 @@ body {
 
     <g transform="translate(480.7979736328125,169.560302734375) scale(0.1)">
        <path id="pandapan_loc1" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="14">Tagum City Slaughterhouse</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Tagum City Slaughterhouse</text>
     </g>
 
     <g transform=" translate(488.35015869140625,156.55377197265625) scale(0.1)">
        <path id="pandapan_loc2" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="14">Minex</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Minex</text>
     </g>
 
     <g transform="translate(563.452392578125,152.3581085205078) scale(0.1)">
        <path id="pandapan_loc3" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="14">Pandapan Elem. School</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Pandapan Elem. School</text>
     </g>
 
     <g transform="translate(481.2175598144531,146.9037628173828) scale(0.1)">
        <path id="pandapan_loc4" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="14">Hexat Mining Corp</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Hexat Mining Corp</text>
     </g>
 
     <!-- END FOR PANDAPAN -->
@@ -879,52 +830,52 @@ body {
 
     <g transform="translate(209.33905029296875,265.9205322265625) scale(0.2)">
        <path id="mankilam_loc1" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Basilio's by JBites</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Basilio's by JBites</text>
     </g>
 
     <g transform="translate(233.53399658203125,224.8031005859375) scale(0.2)">
        <path id="mankilam_loc2" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">NBI Tagum</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">NBI Tagum</text>
     </g>
 
     <g transform="translate(163.74624633789062,238.08935546875)  scale(0.2)">
        <path id="mankilam_loc3" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Mankilam Tagum</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Mankilam Tagum</text>
     </g>
 
     <g transform="translate(121.09040832519531,266.340087890625) scale(0.2)">
        <path id="mankilam_loc4" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Divine Love Foursquare</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Divine Love Foursquare</text>
     </g>
     
     <g transform="translate(152.55783081054688,258.36834716796875) scale(0.2)">
        <path id="mankilam_loc5" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">La Nieves Training Pool</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">La Nieves Training Pool</text>
     </g>
     
     <g transform="translate(137.45347595214844,231.3762969970703)  scale(0.2)">
        <path id="mankilam_loc6" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Cambridge Heights Tagum</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Cambridge Heights Tagum</text>
     </g>
 
     <g transform="translate(160.80929565429688,227.32049560546875) scale(0.2)">
        <path id="mankilam_loc7" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Prk. Banana Basketball Court</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Prk. Banana Basketball Court</text>
     </g>
 
     <g transform="translate(219.12890625,147.60304260253906) scale(0.2)">
        <path id="mankilam_loc8" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Sumifru District Office</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Sumifru District Office</text>
     </g>
     
     <g transform="translate(203.8846893310547,215.4328155517578) scale(0.2)">
        <path id="mankilam_loc9" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Mankilam Elementary School</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Mankilam Elementary School</text>
     </g>
     
     <g transform="translate(264.0224304199219,193.6154022216797) scale(0.2)">
        <path id="mankilam_loc10" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">The Lucky 5 Apartment</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">The Lucky 5 Apartment</text>
     </g>
 
     <!-- END FOR MANKILAM -->
@@ -1043,27 +994,27 @@ body {
 
     <g transform="translate(217, 433) scale(0.2)">
        <path id="sanisidro_loc1" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Northlink Farmville</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Northlink Farmville</text>
     </g>
 
      <g transform="translate(220, 461) scale(0.2)">
        <path id="sanisidro_loc2" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Iglesia ni Cristo</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Iglesia ni Cristo</text>
     </g>
 
      <g transform="translate(241, 476) scale(0.2)">
        <path id="sanisidro_loc3" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">San Isidro Elem. School</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">San Isidro Elem. School</text>
     </g>
 
      <g transform="translate(250, 461) scale(0.2)">
        <path id="sanisidro_loc4" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">SSF on Coco Coir</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">SSF on Coco Coir</text>
     </g>
 
      <g transform="translate(206, 475) scale(0.2)">
        <path id="sanisidro_loc5" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">LRM Print Avenue</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">LRM Print Avenue</text>
     </g>
 
     <!-- END OF SAN ISIDRO -->
@@ -1073,27 +1024,27 @@ body {
 
     <g transform="translate(117, 529) scale(0.2)">
        <path id="bincungan_loc1" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Palmhaven Memorial Park</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Palmhaven Memorial Park</text>
     </g>
 
     <g transform="translate(131, 512) scale(0.2)">
        <path id="bincungan_loc2" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Punong</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Punong</text>
     </g>
 
     <g transform="translate(229, 584) scale(0.2)">
        <path id="bincungan_loc3" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Babangan Elem. School</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Babangan Elem. School</text>
     </g>
 
     <g transform="translate(113, 552) scale(0.2)">
        <path id="bincungan_loc4" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Bincungan Brgy. Hall  </text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Bincungan Brgy. Hall  </text>
     </g>
 
     <g transform="translate(98, 572) scale(0.2)">
        <path id="bincungan_loc5" d="M12,0C5.4,0,0,5.4,0,12c0,7.2,12,24,12,24s12-16.8,12-24C24,5.4,18.6,0,12,0z M12,18c-2.2,0-4-1.8-4-4c0-2.2,1.8-4,4-4s4,1.8,4,4C16,16.2,14.2,18,12,18z" fill="red"/>
-      <text x="12" y="45" text-anchor="middle" font-size="12">Stea Cool</text>
+      <text x="12" y="45" text-anchor="middle" font-size="10">Stea Cool</text>
     </g>
     <!-- END FOR BINCUNGAN -->
 
@@ -1664,9 +1615,6 @@ body {
 </g>
 </svg>
   </svg>
-  <svg id="svgContainer" width="1000" height="1000" viewBox="0 0 1000 1000">
-        <path id="originalPath" fill="none" d="M102.85,593.11c-0.94,0.13-1.1,0.64-0.9,1.53c0.66,2.87,1.25,5.76,1.86,8.64c0.13,0.62,0.22,1.24,0.38,2.14   c-4.97,1.71-9.9,3.4-15.01,5.16c0.42,3.11,0.83,6.16,1.26,9.31c-1.46,0.36-2.43-0.22-3.27-1.06c-0.3,0.07-0.55,0.08-0.76,0.18   c-2.75,1.24-5.6,1.6-8.61,1.18c-2.68-0.37-5.21,0.18-7.49,1.79c-0.73,0.52-1.74,0.91-2.62,0.9c-2.28-0.01-3.74-1.47-3.61-3.86   c0.21-3.87,0.87-7.62,4.51-10.03c1.45-0.96,2.75-2.15,4.16-3.27c-0.19-1.5-0.54-2.92-0.51-4.33c0.06-2.78,0.07-5.6,0.58-8.32   c0.8-4.22,0.44-8.23-1.07-12.19c-0.68-1.79-1.44-3.54-2.12-5.33c-0.69-1.8-0.54-2.11,1.26-2.88c0.44-0.19,0.88-0.37,1.33-0.53   c7.13-2.48,11.62-7.56,14.24-14.48c0.11-0.3,0.33-0.59,0.34-0.89c0.05-2.54,1.78-3.89,3.54-5.31c4.52-3.66,8.98-7.41,13.46-11.12   c1.59-1.32,3.13-2.69,5.12-3.45c2.99-1.14,4.17-5.48,1.67-7.96c-0.62-0.62-1.18-1.29-1.8-1.91c-2.22-2.25-4.68-3.24-7.98-2.36   c-3.84,1.02-7.79,1.65-11.72,2.27c-2.15,0.34-3.73,1.39-4.89,3.09c-1.25,1.84-2.5,3.72-3.42,5.73c-1.21,2.64-3.35,3.71-5.94,4.27   c-1.24,0.27-2.38-0.02-3.39-0.78c-1.49-1.13-1.42-2.91,0.15-3.97c3.41-2.3,4.05-2.99,6.16-6.11c2.06-3.04,4.64-5.44,8.3-6.47   c1.53-0.43,3.01-1.03,4.52-1.53c1.43-0.47,2.37-1.4,2.41-2.92c0.04-1.65,0.96-2.4,2.35-2.9c0.67-0.24,1.33-0.55,1.93-0.93   c1.38-0.88,1.62-1.9,0.56-3.18c-0.8-0.97-1.8-1.8-2.8-2.58c-3.27-2.55-6.59-5.03-9.85-7.58c-1.06-0.83-2.03-1.79-2.98-2.76   c-1.03-1.05-1.72-2.29-1.61-3.85c0.87-1.01,2.06-0.67,3.13-0.74c4.04-0.3,8.09-0.55,12.13-0.87c0.7-0.06,1.4-0.31,2.07-0.55   c2.63-0.95,4.32-3.24,4.27-6c-0.02-0.82-0.35-1.75-0.82-2.42c-1.57-2.21-2.31-4.73-2.78-7.31c-0.21-1.11,0.08-2.36,0.38-3.49   c0.13-0.5,0.77-1.07,1.3-1.24c3.38-1.11,6.8-2.12,10.4-3.22c0.67,1.15,1.46,2.51,2.4,4.15c0.94,1.14,1.63,2.15,2.55,2.85   c13.06,10.08,26.15,20.12,39.23,30.17c0.75,0.58,1.48,1.18,2.24,1.78c-0.32,0.8-0.6,1.5-0.86,2.16c1.24,0.98,2.37,1.85,3.49,2.74   c10.49,8.32,21.01,16.6,31.42,25.02c1.85,1.5,3.58,1.94,5.88,1.54c3.44-0.6,6.93-0.89,10.68-1.35c0.24,1.22,0.5,2.27,0.64,3.34   c0.24,1.98,0.72,2.41,2.67,2.49c0.8,0.03,1.59,0.28,2.54,0.46c-0.32,1.02-0.56,1.69-0.75,2.37c-0.66,2.37,0.26,3.33,2.71,2.84   c0.78-0.16,1.54-0.44,2.32-0.54c1.49-0.2,2.54,0.51,2.9,1.85c0.34,1.23-0.34,2.5-1.7,3.03c-0.59,0.23-1.27,0.22-1.84,0.47   c-0.54,0.24-1.2,0.58-1.43,1.05c-0.88,1.87,0.69,5.36,2.63,6.05c1.29,0.46,2.76-0.01,3.47-1.35c0.55-1.04,0.86-2.21,1.21-3.35   c0.3-0.96,0.49-1.95,0.73-2.92c1.74,0.31,1.76,0.3,2.36,1.18c0.97,1.42,1.5,2.96,1.44,4.71c-0.09,2.44,0.63,4.5,2.66,6.08   c1.31,1.02,1.32,1.68,0.46,3.06c-0.25,0.4-0.61,0.73-0.92,1.09c-1.33,1.59-1.39,2.66,0,4.21c1.6,1.78,3.28,3.5,5.73,4.13   c0.78,0.2,1.61,0.37,1.59,1.44c-0.03,1.06-0.11,2.11-1.33,2.55c-0.67,0.24-1.35,0.49-2.03,0.7c-1.08,0.34-1.64,1.08-1.35,2.17   c0.59,2.23,0.29,4.41-0.01,6.64c-0.26,1.99,0.39,2.54,2.25,1.87c2.44-0.87,4.36-0.23,5.98,1.65c0.26,0.3,0.51,0.61,0.76,0.92   c2.47,3.06,5.09,2.9,6.84-0.64c2.45-4.94,6.51-7.43,11.74-8.42c0.97-0.18,1.83-0.08,2.42,0.59c0.77,0.87,1.61,1.84,1.91,2.91   c0.65,2.29,1.09,4.65,1.39,7.01c0.33,2.62-2.02,6.04-4.48,6.79c-12.78,3.93-25.56,7.86-38.35,11.78c-0.58,0.18-1.2,0.26-1.85,0.4   c-0.34-0.68-0.6-1.25-0.89-1.81c-1.37-2.61-2.77-3.3-5.66-2.64c-0.91,0.21-1.84,0.59-2.6,1.12c-3.11,2.18-5.01,5.12-4.99,9.02   c0.01,2.31,0.21,4.61,0.33,6.91c0.07,1.27,0.19,2.54,0.22,3.81c0.05,1.79-0.43,3.3-2.26,4.08c-1.83,0.78-3.54,0.74-5.15-0.55   c-2.49-1.99-4.47-4.26-4.88-7.62c-0.14-1.14-0.51-2.45-1.24-3.27c-2.11-2.38-4.66-3.94-8.09-3.97c-2.76-0.02-5.52-0.59-8.28-0.94   c-0.9-0.12-1.77-0.35-1.53-1.75c0.52-0.2,1.09-0.49,1.69-0.63c2.17-0.49,4.35-0.97,6.54-1.37c1.79-0.33,3.36-0.96,4.46-2.49   c0.95-1.31,0.94-2.71-0.25-3.85c-5.15-4.95-9.81-10.47-16.2-14.04c-2.85-1.59-5.5-3.52-8.21-5.35c-1.6-1.07-2.8-2.45-2.48-4.55   c0.44-2.96,2.13-4.64,5.12-5.19c1.8-0.33,3.63-0.51,5.43-0.84c1.65-0.31,3.31-0.7,4.38-2.16c0.68-0.93,1.49-1.33,2.64-1.23   c1.49,0.13,2.73-0.52,3.41-1.78c0.79-1.45,1.51-3.01,1.89-4.61c0.54-2.27-1.07-3.91-3.4-3.66c-1.52,0.16-2.93,0.64-4.06,1.81   c-0.53,0.55-1.36,1.3-1.94,1.2c-2.34-0.37-4.85-0.72-5.93-3.34c-0.98-2.38-2.75-3.06-5.17-2.83c-2.28,0.22-2.78-0.17-3.52-2.28   c-0.24-0.67-0.44-1.36-0.62-2.05c-0.53-1.98-1.78-3.32-3.56-4.26c-1.66-0.87-3.38-1.32-5.27-1.3c-2.75,0.03-2.88-0.1-3.61-2.68   c-0.11-0.38-0.07-0.85-0.27-1.15c-0.37-0.55-0.81-1.12-1.35-1.48c-0.49-0.32-1.16-0.36-1.23-0.38c-0.69-1.16-0.99-2.28-1.64-2.55   c-0.5-0.21-1.46,0.62-2.19,1.03c-0.27,0.15-0.47,0.42-0.7,0.65c-3.13,3.07-6.22,6.18-9.41,9.18c-1.13,1.07-1.64,2.18-1.57,3.75   c0.12,2.77,0.03,5.54,0.03,8.18c-1,0.43-1.71,0.73-2.32,0.99c-0.46,1.34-0.08,2.11,1.04,2.67c1.55,0.77,3.05,1.65,4.69,2.54   c-1.14,2.53-2.21,4.88-3.33,7.36c-4.43-1.45-8.63-2.82-12.97-4.25c-0.71,2.29-1.41,4.32-1.95,6.38c-0.34,1.3-1,2.24-2.08,3.06   C109.16,589.45,106.22,591.61,102.85,593.11z"></path>
-    </svg>
      <button id="statistical" type="button" data-bs-toggle="modal" data-bs-target="#trigger" class="position-fixed start-20 bottom-3 btn bg-gradient-danger btn-sm px-0 mx-0 w-20" style="display: none;">View Statistical Data</button>
     </section>
   </main>
@@ -1677,7 +1625,7 @@ body {
   <div class="modal-dialog modal-xl" role="document">
     <div class="modal-content blur">
       <div class="modal-header">
-        <h6 class="modal-title" id="repTitle">Tagum City Crime Reports</h6>
+        <h6 class="modal-title" id="trigger">Tagum City Crime Reports</h6>
          <button id="buttonE" type="button" class="btn-close bg-secondary justify-content-end" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -1687,11 +1635,8 @@ body {
     <button onclick="downloadCanvas()" type="button" class="btn bg-gradient-secondary btn-sm mb-2 px-0 w-85" id="downloadB">Download Graph</button>
     </div>
 
-
    </div> 
-   <div id="chartParent">
-       <!-- <canvas id="chart-line1" width="299" height="90" position="absolute" class="chartjs-render-monitor pb-4 pt-2"></canvas> -->
-     </div>
+      <canvas id="chart-line1" width="299" height="90" position="absolute" class="chartjs-render-monitor pb-4 pt-2"></canvas>
             <!-- END -->
       <div class="table-responsive m-3 p-3">
         <!-- GENERAL TABLE -->
@@ -1703,7 +1648,7 @@ body {
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr data-bs-toggle="modal" data-bs-target="#exampleModal" class="cursor-pointer">
           <td>
             <p class="text-xs font-weight-bold mb-0">Theft</p>
           </td>
@@ -1711,7 +1656,22 @@ body {
             <span class="text-secondary text-xs font-weight-bold">86</span>
           </td>
         </tr>
-        
+        <tr>
+          <td>
+            <p class="text-xs font-weight-bold mb-0">Rape</p>
+          </td>
+          <td class="align-middle text-center">
+            <span class="text-secondary text-xs font-weight-bold">282</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p class="text-xs font-weight-bold mb-0">Missing</p>
+          </td>
+          <td class="align-middle text-center">
+            <span class="text-secondary text-xs font-weight-bold">25</span>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -1760,153 +1720,6 @@ body {
   <!-- <script src="assets/js/soft-ui-dashboard.min.js?v=1.0.6"></script> -->
   <!-- ZOOM ZVG -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.7.1/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.5.1/snap.svg-min.js"></script>
 
-<script>
-
-let dateDropdown = document.getElementById('annual1');
-
-  let currentYear = new Date().getFullYear();
-  let earliestYear = 2022;
-
-  while (currentYear >= earliestYear) {
-    let dateOption = document.createElement('option');
-    dateOption.text = currentYear;
-    dateOption.value = currentYear;
-    dateDropdown.add(dateOption);
-    currentYear -= 1;
-  }
-
-  dateDropdown.value = new Date().getFullYear(); // Set default selected value
-
-</script>
-<!-- <script>
-        // Define colors for sub-paths
-        var colors = ["green", "red", "pink", "yellow", "purple", "orange"]; // Add more colors as needed
-
-        // Define number of sub-paths
-        var numSubPaths = 9 ; // Change this to specify the number of sub-paths
-
-        // Get original path element
-        var originalPath = document.getElementById("originalPath");
-
-        // Get original path's bounding box
-        var originalPathBBox = originalPath.getBBox();
-
-        // Calculate width and height of each sub-path
-        var subPathWidth = originalPathBBox.width / numSubPaths;
-        var subPathHeight = originalPathBBox.height / numSubPaths;
-
-        // Generate coordinates for sub-paths within the original path's bounding box
-        var coordinates = generateCoordinates(numSubPaths, originalPathBBox, subPathWidth, subPathHeight);
-
-        // Loop through the coordinates array and create new path elements for each
-        for (var i = 0; i < coordinates.length; i++) {
-            var newPath = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            newPath.setAttribute("d", coordinates[i]);
-            newPath.setAttribute("fill", colors[i % colors.length]); // Set fill color from the colors array
-            document.getElementById("svgContainer").appendChild(newPath);
-        }
-
-        // Function to generate coordinates for sub-paths within the bounding box
-        function generateCoordinates(num, bbox, width, height) {
-            var coords = [];
-            for (var i = 0; i < num; i++) {
-                var x = bbox.x + i * width; // X coordinate based on sub-path width
-                var y = bbox.y + i * height; // Y coordinate based on sub-path height
-                var d = "M" + x + " " + y + " L" + (x + width) + " " + y + " L" + (x + width) + " " + (y + height) + " L" + x + " " + (y + height) + " Z"; // Rectangular path data
-                coords.push(d);
-            }
-            return coords;
-        }
-    </script> -->
-
-    <script>
-
-        // Define colors for sub-paths
-    // var colors = ["blue","yellow","red","orange","green","violet","gray"];
-
-
-        // Define path
-        // var pathString = "M102.85,593.11c-0.94,0.13-1.1,0.64-0.9,1.53c0.66,2.87,1.25,5.76,1.86,8.64c0.13,0.62,0.22,1.24,0.38,2.14   c-4.97,1.71-9.9,3.4-15.01,5.16c0.42,3.11,0.83,6.16,1.26,9.31c-1.46,0.36-2.43-0.22-3.27-1.06c-0.3,0.07-0.55,0.08-0.76,0.18   c-2.75,1.24-5.6,1.6-8.61,1.18c-2.68-0.37-5.21,0.18-7.49,1.79c-0.73,0.52-1.74,0.91-2.62,0.9c-2.28-0.01-3.74-1.47-3.61-3.86   c0.21-3.87,0.87-7.62,4.51-10.03c1.45-0.96,2.75-2.15,4.16-3.27c-0.19-1.5-0.54-2.92-0.51-4.33c0.06-2.78,0.07-5.6,0.58-8.32   c0.8-4.22,0.44-8.23-1.07-12.19c-0.68-1.79-1.44-3.54-2.12-5.33c-0.69-1.8-0.54-2.11,1.26-2.88c0.44-0.19,0.88-0.37,1.33-0.53   c7.13-2.48,11.62-7.56,14.24-14.48c0.11-0.3,0.33-0.59,0.34-0.89c0.05-2.54,1.78-3.89,3.54-5.31c4.52-3.66,8.98-7.41,13.46-11.12   c1.59-1.32,3.13-2.69,5.12-3.45c2.99-1.14,4.17-5.48,1.67-7.96c-0.62-0.62-1.18-1.29-1.8-1.91c-2.22-2.25-4.68-3.24-7.98-2.36   c-3.84,1.02-7.79,1.65-11.72,2.27c-2.15,0.34-3.73,1.39-4.89,3.09c-1.25,1.84-2.5,3.72-3.42,5.73c-1.21,2.64-3.35,3.71-5.94,4.27   c-1.24,0.27-2.38-0.02-3.39-0.78c-1.49-1.13-1.42-2.91,0.15-3.97c3.41-2.3,4.05-2.99,6.16-6.11c2.06-3.04,4.64-5.44,8.3-6.47   c1.53-0.43,3.01-1.03,4.52-1.53c1.43-0.47,2.37-1.4,2.41-2.92c0.04-1.65,0.96-2.4,2.35-2.9c0.67-0.24,1.33-0.55,1.93-0.93   c1.38-0.88,1.62-1.9,0.56-3.18c-0.8-0.97-1.8-1.8-2.8-2.58c-3.27-2.55-6.59-5.03-9.85-7.58c-1.06-0.83-2.03-1.79-2.98-2.76   c-1.03-1.05-1.72-2.29-1.61-3.85c0.87-1.01,2.06-0.67,3.13-0.74c4.04-0.3,8.09-0.55,12.13-0.87c0.7-0.06,1.4-0.31,2.07-0.55   c2.63-0.95,4.32-3.24,4.27-6c-0.02-0.82-0.35-1.75-0.82-2.42c-1.57-2.21-2.31-4.73-2.78-7.31c-0.21-1.11,0.08-2.36,0.38-3.49   c0.13-0.5,0.77-1.07,1.3-1.24c3.38-1.11,6.8-2.12,10.4-3.22c0.67,1.15,1.46,2.51,2.4,4.15c0.94,1.14,1.63,2.15,2.55,2.85   c13.06,10.08,26.15,20.12,39.23,30.17c0.75,0.58,1.48,1.18,2.24,1.78c-0.32,0.8-0.6,1.5-0.86,2.16c1.24,0.98,2.37,1.85,3.49,2.74   c10.49,8.32,21.01,16.6,31.42,25.02c1.85,1.5,3.58,1.94,5.88,1.54c3.44-0.6,6.93-0.89,10.68-1.35c0.24,1.22,0.5,2.27,0.64,3.34   c0.24,1.98,0.72,2.41,2.67,2.49c0.8,0.03,1.59,0.28,2.54,0.46c-0.32,1.02-0.56,1.69-0.75,2.37c-0.66,2.37,0.26,3.33,2.71,2.84   c0.78-0.16,1.54-0.44,2.32-0.54c1.49-0.2,2.54,0.51,2.9,1.85c0.34,1.23-0.34,2.5-1.7,3.03c-0.59,0.23-1.27,0.22-1.84,0.47   c-0.54,0.24-1.2,0.58-1.43,1.05c-0.88,1.87,0.69,5.36,2.63,6.05c1.29,0.46,2.76-0.01,3.47-1.35c0.55-1.04,0.86-2.21,1.21-3.35   c0.3-0.96,0.49-1.95,0.73-2.92c1.74,0.31,1.76,0.3,2.36,1.18c0.97,1.42,1.5,2.96,1.44,4.71c-0.09,2.44,0.63,4.5,2.66,6.08   c1.31,1.02,1.32,1.68,0.46,3.06c-0.25,0.4-0.61,0.73-0.92,1.09c-1.33,1.59-1.39,2.66,0,4.21c1.6,1.78,3.28,3.5,5.73,4.13   c0.78,0.2,1.61,0.37,1.59,1.44c-0.03,1.06-0.11,2.11-1.33,2.55c-0.67,0.24-1.35,0.49-2.03,0.7c-1.08,0.34-1.64,1.08-1.35,2.17   c0.59,2.23,0.29,4.41-0.01,6.64c-0.26,1.99,0.39,2.54,2.25,1.87c2.44-0.87,4.36-0.23,5.98,1.65c0.26,0.3,0.51,0.61,0.76,0.92   c2.47,3.06,5.09,2.9,6.84-0.64c2.45-4.94,6.51-7.43,11.74-8.42c0.97-0.18,1.83-0.08,2.42,0.59c0.77,0.87,1.61,1.84,1.91,2.91   c0.65,2.29,1.09,4.65,1.39,7.01c0.33,2.62-2.02,6.04-4.48,6.79c-12.78,3.93-25.56,7.86-38.35,11.78c-0.58,0.18-1.2,0.26-1.85,0.4   c-0.34-0.68-0.6-1.25-0.89-1.81c-1.37-2.61-2.77-3.3-5.66-2.64c-0.91,0.21-1.84,0.59-2.6,1.12c-3.11,2.18-5.01,5.12-4.99,9.02   c0.01,2.31,0.21,4.61,0.33,6.91c0.07,1.27,0.19,2.54,0.22,3.81c0.05,1.79-0.43,3.3-2.26,4.08c-1.83,0.78-3.54,0.74-5.15-0.55   c-2.49-1.99-4.47-4.26-4.88-7.62c-0.14-1.14-0.51-2.45-1.24-3.27c-2.11-2.38-4.66-3.94-8.09-3.97c-2.76-0.02-5.52-0.59-8.28-0.94   c-0.9-0.12-1.77-0.35-1.53-1.75c0.52-0.2,1.09-0.49,1.69-0.63c2.17-0.49,4.35-0.97,6.54-1.37c1.79-0.33,3.36-0.96,4.46-2.49   c0.95-1.31,0.94-2.71-0.25-3.85c-5.15-4.95-9.81-10.47-16.2-14.04c-2.85-1.59-5.5-3.52-8.21-5.35c-1.6-1.07-2.8-2.45-2.48-4.55   c0.44-2.96,2.13-4.64,5.12-5.19c1.8-0.33,3.63-0.51,5.43-0.84c1.65-0.31,3.31-0.7,4.38-2.16c0.68-0.93,1.49-1.33,2.64-1.23   c1.49,0.13,2.73-0.52,3.41-1.78c0.79-1.45,1.51-3.01,1.89-4.61c0.54-2.27-1.07-3.91-3.4-3.66c-1.52,0.16-2.93,0.64-4.06,1.81   c-0.53,0.55-1.36,1.3-1.94,1.2c-2.34-0.37-4.85-0.72-5.93-3.34c-0.98-2.38-2.75-3.06-5.17-2.83c-2.28,0.22-2.78-0.17-3.52-2.28   c-0.24-0.67-0.44-1.36-0.62-2.05c-0.53-1.98-1.78-3.32-3.56-4.26c-1.66-0.87-3.38-1.32-5.27-1.3c-2.75,0.03-2.88-0.1-3.61-2.68   c-0.11-0.38-0.07-0.85-0.27-1.15c-0.37-0.55-0.81-1.12-1.35-1.48c-0.49-0.32-1.16-0.36-1.23-0.38c-0.69-1.16-0.99-2.28-1.64-2.55   c-0.5-0.21-1.46,0.62-2.19,1.03c-0.27,0.15-0.47,0.42-0.7,0.65c-3.13,3.07-6.22,6.18-9.41,9.18c-1.13,1.07-1.64,2.18-1.57,3.75   c0.12,2.77,0.03,5.54,0.03,8.18c-1,0.43-1.71,0.73-2.32,0.99c-0.46,1.34-0.08,2.11,1.04,2.67c1.55,0.77,3.05,1.65,4.69,2.54   c-1.14,2.53-2.21,4.88-3.33,7.36c-4.43-1.45-8.63-2.82-12.97-4.25c-0.71,2.29-1.41,4.32-1.95,6.38c-0.34,1.3-1,2.24-2.08,3.06   C109.16,589.45,106.22,591.61,102.85,593.11z";
-
-
-// // Create Snap.svg paper object
-// var paper = Snap("#svgContainer");
-
-// // Create original path object
-// var originalPath = paper.path(pathString);
-// // Remove fill from original path
-// originalPath.attr({ fill: "none" });
-
-// // Calculate total path length
-// var totalLength = originalPath.getTotalLength();
-
-// // Define lengths of sub-paths
-// var subPathLengths = [
-//     totalLength * 0.3,
-//     totalLength * 0.7
-// ];
-
-// // Create clip path object from original path
-// var clipPath = originalPath.toDefs().use();
-
-// // Loop through sub-path lengths and create sub-paths
-// var start = 0;
-// for (var i = 0; i < subPathLengths.length; i++) {
-  
-//     var subPath = originalPath.getSubpath(start, start + subPathLengths[i]);
-//     start += subPathLengths[i];
-
-//     // Create sub-path object
-//     var subPathObject = paper.path(subPath);
-
-//     // Set clip path to parent path
-//     subPathObject.attr({
-//         "clip-path": clipPath
-//     });
-
-//     // Set fill color
-//     subPathObject.attr({
-//         fill: colors[i]
-//     });
-// }
-
-// Define colors for sub-paths
-var colors = ["blue", "red", "yellow", "green"];
-
-// Define path
-var pathString = "M102.85,593.11c-0.94,0.13-1.1,0.64-0.9,1.53c0.66,2.87,1.25,5.76,1.86,8.64c0.13,0.62,0.22,1.24,0.38,2.14   c-4.97,1.71-9.9,3.4-15.01,5.16c0.42,3.11,0.83,6.16,1.26,9.31c-1.46,0.36-2.43-0.22-3.27-1.06c-0.3,0.07-0.55,0.08-0.76,0.18   c-2.75,1.24-5.6,1.6-8.61,1.18c-2.68-0.37-5.21,0.18-7.49,1.79c-0.73,0.52-1.74,0.91-2.62,0.9c-2.28-0.01-3.74-1.47-3.61-3.86   c0.21-3.87,0.87-7.62,4.51-10.03c1.45-0.96,2.75-2.15,4.16-3.27c-0.19-1.5-0.54-2.92-0.51-4.33c0.06-2.78,0.07-5.6,0.58-8.32   c0.8-4.22,0.44-8.23-1.07-12.19c-0.68-1.79-1.44-3.54-2.12-5.33c-0.69-1.8-0.54-2.11,1.26-2.88c0.44-0.19,0.88-0.37,1.33-0.53   c7.13-2.48,11.62-7.56,14.24-14.48c0.11-0.3,0.33-0.59,0.34-0.89c0.05-2.54,1.78-3.89,3.54-5.31c4.52-3.66,8.98-7.41,13.46-11.12   c1.59-1.32,3.13-2.69,5.12-3.45c2.99-1.14,4.17-5.48,1.67-7.96c-0.62-0.62-1.18-1.29-1.8-1.91c-2.22-2.25-4.68-3.24-7.98-2.36   c-3.84,1.02-7.79,1.65-11.72,2.27c-2.15,0.34-3.73,1.39-4.89,3.09c-1.25,1.84-2.5,3.72-3.42,5.73c-1.21,2.64-3.35,3.71-5.94,4.27   c-1.24,0.27-2.38-0.02-3.39-0.78c-1.49-1.13-1.42-2.91,0.15-3.97c3.41-2.3,4.05-2.99,6.16-6.11c2.06-3.04,4.64-5.44,8.3-6.47   c1.53-0.43,3.01-1.03,4.52-1.53c1.43-0.47,2.37-1.4,2.41-2.92c0.04-1.65,0.96-2.4,2.35-2.9c0.67-0.24,1.33-0.55,1.93-0.93   c1.38-0.88,1.62-1.9,0.56-3.18c-0.8-0.97-1.8-1.8-2.8-2.58c-3.27-2.55-6.59-5.03-9.85-7.58c-1.06-0.83-2.03-1.79-2.98-2.76   c-1.03-1.05-1.72-2.29-1.61-3.85c0.87-1.01,2.06-0.67,3.13-0.74c4.04-0.3,8.09-0.55,12.13-0.87c0.7-0.06,1.4-0.31,2.07-0.55   c2.63-0.95,4.32-3.24,4.27-6c-0.02-0.82-0.35-1.75-0.82-2.42c-1.57-2.21-2.31-4.73-2.78-7.31c-0.21-1.11,0.08-2.36,0.38-3.49   c0.13-0.5,0.77-1.07,1.3-1.24c3.38-1.11,6.8-2.12,10.4-3.22c0.67,1.15,1.46,2.51,2.4,4.15c0.94,1.14,1.63,2.15,2.55,2.85   c13.06,10.08,26.15,20.12,39.23,30.17c0.75,0.58,1.48,1.18,2.24,1.78c-0.32,0.8-0.6,1.5-0.86,2.16c1.24,0.98,2.37,1.85,3.49,2.74   c10.49,8.32,21.01,16.6,31.42,25.02c1.85,1.5,3.58,1.94,5.88,1.54c3.44-0.6,6.93-0.89,10.68-1.35c0.24,1.22,0.5,2.27,0.64,3.34   c0.24,1.98,0.72,2.41,2.67,2.49c0.8,0.03,1.59,0.28,2.54,0.46c-0.32,1.02-0.56,1.69-0.75,2.37c-0.66,2.37,0.26,3.33,2.71,2.84   c0.78-0.16,1.54-0.44,2.32-0.54c1.49-0.2,2.54,0.51,2.9,1.85c0.34,1.23-0.34,2.5-1.7,3.03c-0.59,0.23-1.27,0.22-1.84,0.47   c-0.54,0.24-1.2,0.58-1.43,1.05c-0.88,1.87,0.69,5.36,2.63,6.05c1.29,0.46,2.76-0.01,3.47-1.35c0.55-1.04,0.86-2.21,1.21-3.35   c0.3-0.96,0.49-1.95,0.73-2.92c1.74,0.31,1.76,0.3,2.36,1.18c0.97,1.42,1.5,2.96,1.44,4.71c-0.09,2.44,0.63,4.5,2.66,6.08   c1.31,1.02,1.32,1.68,0.46,3.06c-0.25,0.4-0.61,0.73-0.92,1.09c-1.33,1.59-1.39,2.66,0,4.21c1.6,1.78,3.28,3.5,5.73,4.13   c0.78,0.2,1.61,0.37,1.59,1.44c-0.03,1.06-0.11,2.11-1.33,2.55c-0.67,0.24-1.35,0.49-2.03,0.7c-1.08,0.34-1.64,1.08-1.35,2.17   c0.59,2.23,0.29,4.41-0.01,6.64c-0.26,1.99,0.39,2.54,2.25,1.87c2.44-0.87,4.36-0.23,5.98,1.65c0.26,0.3,0.51,0.61,0.76,0.92   c2.47,3.06,5.09,2.9,6.84-0.64c2.45-4.94,6.51-7.43,11.74-8.42c0.97-0.18,1.83-0.08,2.42,0.59c0.77,0.87,1.61,1.84,1.91,2.91   c0.65,2.29,1.09,4.65,1.39,7.01c0.33,2.62-2.02,6.04-4.48,6.79c-12.78,3.93-25.56,7.86-38.35,11.78c-0.58,0.18-1.2,0.26-1.85,0.4   c-0.34-0.68-0.6-1.25-0.89-1.81c-1.37-2.61-2.77-3.3-5.66-2.64c-0.91,0.21-1.84,0.59-2.6,1.12c-3.11,2.18-5.01,5.12-4.99,9.02   c0.01,2.31,0.21,4.61,0.33,6.91c0.07,1.27,0.19,2.54,0.22,3.81c0.05,1.79-0.43,3.3-2.26,4.08c-1.83,0.78-3.54,0.74-5.15-0.55   c-2.49-1.99-4.47-4.26-4.88-7.62c-0.14-1.14-0.51-2.45-1.24-3.27c-2.11-2.38-4.66-3.94-8.09-3.97c-2.76-0.02-5.52-0.59-8.28-0.94   c-0.9-0.12-1.77-0.35-1.53-1.75c0.52-0.2,1.09-0.49,1.69-0.63c2.17-0.49,4.35-0.97,6.54-1.37c1.79-0.33,3.36-0.96,4.46-2.49   c0.95-1.31,0.94-2.71-0.25-3.85c-5.15-4.95-9.81-10.47-16.2-14.04c-2.85-1.59-5.5-3.52-8.21-5.35c-1.6-1.07-2.8-2.45-2.48-4.55   c0.44-2.96,2.13-4.64,5.12-5.19c1.8-0.33,3.63-0.51,5.43-0.84c1.65-0.31,3.31-0.7,4.38-2.16c0.68-0.93,1.49-1.33,2.64-1.23   c1.49,0.13,2.73-0.52,3.41-1.78c0.79-1.45,1.51-3.01,1.89-4.61c0.54-2.27-1.07-3.91-3.4-3.66c-1.52,0.16-2.93,0.64-4.06,1.81   c-0.53,0.55-1.36,1.3-1.94,1.2c-2.34-0.37-4.85-0.72-5.93-3.34c-0.98-2.38-2.75-3.06-5.17-2.83c-2.28,0.22-2.78-0.17-3.52-2.28   c-0.24-0.67-0.44-1.36-0.62-2.05c-0.53-1.98-1.78-3.32-3.56-4.26c-1.66-0.87-3.38-1.32-5.27-1.3c-2.75,0.03-2.88-0.1-3.61-2.68   c-0.11-0.38-0.07-0.85-0.27-1.15c-0.37-0.55-0.81-1.12-1.35-1.48c-0.49-0.32-1.16-0.36-1.23-0.38c-0.69-1.16-0.99-2.28-1.64-2.55   c-0.5-0.21-1.46,0.62-2.19,1.03c-0.27,0.15-0.47,0.42-0.7,0.65c-3.13,3.07-6.22,6.18-9.41,9.18c-1.13,1.07-1.64,2.18-1.57,3.75   c0.12,2.77,0.03,5.54,0.03,8.18c-1,0.43-1.71,0.73-2.32,0.99c-0.46,1.34-0.08,2.11,1.04,2.67c1.55,0.77,3.05,1.65,4.69,2.54   c-1.14,2.53-2.21,4.88-3.33,7.36c-4.43-1.45-8.63-2.82-12.97-4.25c-0.71,2.29-1.41,4.32-1.95,6.38c-0.34,1.3-1,2.24-2.08,3.06   C109.16,589.45,106.22,591.61,102.85,593.11z";
-
-
-// Create Snap.svg paper object
-var paper = Snap("#svgContainer");
-// Create original path object
-var originalPath = paper.path(pathString);
-// Calculate total path length
-var totalLength = originalPath.getTotalLength();
-// Define lengths of sub-paths
-var subPathLengths = [
-    totalLength * 0.5,
-    totalLength * 0.2,
-    totalLength * 0.15,
-    totalLength * 0.15
-];
-// Calculate center point of the original path
-var centerPoint = originalPath.getPointAtLength(totalLength / 2);
-// Loop through sub-path lengths and create sub-paths
-var start = 0;
-for (var i = 0; i < subPathLengths.length; i++) {
-    var subPath = originalPath.getSubpath(start, start + subPathLengths[i], true) + "L" + centerPoint.x + "," + centerPoint.y + "Z";
-    start += subPathLengths[i];
-    // Create sub-path object
-    var subPathObject = paper.path(subPath);
-    // Set fill color
-    subPathObject.attr({
-        fill: colors[i]
-    });
-}
-
-    </script>
 </body>
 </html>

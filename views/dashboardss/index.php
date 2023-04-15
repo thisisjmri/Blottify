@@ -90,7 +90,7 @@ body {
     <div class="collapse navbar-collapse w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link bg-gradient-warning active" href="<?php echo URL;?>dashboardss">
+          <a class="nav-link bg-gradient-dark active" href="<?php echo URL;?>dashboardss">
             <div class="icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
               <svg class="text-white" width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>document</title>
@@ -144,7 +144,7 @@ if($station_type == "Main Station"){
 
             for ($f=0; $f <count($this->getStation); $f++) {
               if ($this->getStation[$f]['station_type'] == 'Main Station') {
-                echo "<li class='nav-item py-2' onClick='setActive(".$this->getStation[$f]['id'].",0)'>
+                echo "<li class='nav-item py-2 cursor-pointer' onClick='setActive(".$this->getStation[$f]['id'].",0)'>
                 <a class='nav-link'>
                   <div class='icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center'>
                     <svg class='text-dark' width='16px' height='16px' viewBox='0 0 40 44' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
@@ -156,7 +156,7 @@ if($station_type == "Main Station"){
               </li>";
               }
               else {
-                echo "<li class='nav-item py-2' onClick='setActive(".$this->getStation[$f]['id'].",1)'>
+                echo "<li class='nav-item py-2 cursor-pointer' onClick='setActive(".$this->getStation[$f]['id'].",1)'>
                 <a class='nav-link'>
                   <div class='icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center'>
                     <svg class='text-dark' width='16px' height='16px' viewBox='0 0 40 44' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
@@ -197,8 +197,8 @@ else {
 
   <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
    <!-- NAVIGATION BAR -->
-      <div class="page-header min-height-150 border-radius-xl mt-4 mx-4" style="background-image: url('public/img/curved-images/curved0.jpg'); background-position-y: 50%;">
-        <span class="mask bg-gradient-warning opacity-5"></span>
+      <div class="page-header min-height-150 border-radius-xl mt-4 mx-4" style="background-image: url('public/img/curved-images/curved101.jpg'); background-position-y: 50%;">
+        <span class="mask bg-gradient-dark opacity-3"></span>
       </div>
 
       <nav class="navbar navbar-main navbar-expand-lg shadow-blur mx-5 mt-n5  px-0 mx-4 shadow-none border-radius-xl position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur" navbar-scroll="true">
@@ -218,7 +218,7 @@ else {
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a class="btn  bg-gradient-warning btn-sm mb-0 me-3" target="_blank" href="blotter">Add Blotter</a>
+              <a class="btn  bg-gradient-dark btn-sm mb-0 me-3" target="_blank" href="blotter">Add Blotter</a>
             </li>
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
               <a  href="javascript:;" class="nav-link p-0" id="dropdownprofile" data-bs-toggle="dropdown" aria-expanded="false">
@@ -231,7 +231,6 @@ else {
                     <div class="d-flex py-1">
                       <div class="my-auto avatar avatar-lg position-relative">
                         <?php 
-                              Session::init();
                               $admin_id = Session::get("admin_id");
                               for($i=0; $i<count($this->getUser); $i++){
                                 if($this->getUser[$i]['id'] == $admin_id){
@@ -241,11 +240,10 @@ else {
                             ?>
               <img src="<?php echo ($pic =='') ? "url('public/img/bruce-mars.jpg')" : "uploads/profile_image/".$pic ?>" alt="profile_image" class="w-100 avatar avatar-lg me-3" style="object-fit: cover; width: 100%; height: 100%;">
                       </div>
-                      <div class="d-flex flex-column justify-content-center">
+                      <div class="d-flex flex-column justify-content-start">
                         <h6 class="text-sm font-weight-normal mb-1">
                           <span class="font-weight-bold">
                             <?php 
-                              Session::init();
                               $admin_id = Session::get("admin_id");
                               for($i=0; $i<count($this->getUser); $i++){
                                 if($this->getUser[$i]['id'] == $admin_id){
@@ -258,11 +256,14 @@ else {
                         <p class="text-xs text-secondary mb-0">
                           <i class="fa fa-user me-1"></i>
                             <?php 
-                              Session::init();
                               $admin_id = Session::get("admin_id");
                               for($i=0; $i<count($this->getUser); $i++){
                                 if($this->getUser[$i]['id'] == $admin_id){
-                                  echo $this->getUser[$i]['rank'];
+                                  for ($j=0; $j <count($this->getRank); $j++) { 
+                                    if ($this->getUser[$i]['rank'] == $this->getRank[$j]['id']) {
+                                      echo $this->getRank[$j]['rank_name'];
+                                    }
+                                  }
                                 }
                               } 
                             ?>
@@ -306,6 +307,7 @@ else {
                     </a>
                     <ul class='dropdown-menu dropdown-menu-end  px-2 py-3 me-sm-n4 z-index-sticky position-absolute z-index-5' id='notifications-container' aria-labelledby='dropdownMenuButton'>
                     </ul>
+
                   </li>";
             }
 
@@ -324,11 +326,10 @@ else {
       <div class="card-body p-3">
          <div class="row">
              <div class="col-lg-3 col-6 text-center">
-               <div class=" border-secondary border-radius-md py-2">
+               <div class=" border-secondary border-radius-md py-4">
                 <h4 class=" text-lg"><span class="small"></span><span >Welcome Back,</span></h4>
-                  <h5 style="font-family: 'Quicksand';" class="text-warning text-gradient mb-0 text-lg">
+                  <h5 style="font-family: 'Quicksand'; color: #174e91;" class="mb-0 text-lg">
                     <?php 
-                      Session::init();
                       $admin_id = Session::get("admin_id");
                       for($i=0; $i<count($this->getUser); $i++){
                         if($this->getUser[$i]['id'] == $admin_id){
@@ -337,13 +338,16 @@ else {
                       } 
                     ?>
                   </h5>
-                  <p class="text-sm m-0 text-bold">
+                  <p class="text-sm m-0 text-bold pt-2">
                     <?php 
-                      Session::init();
                       $admin_id = Session::get("admin_id");
                       for($i=0; $i<count($this->getUser); $i++){
                         if($this->getUser[$i]['id'] == $admin_id){
-                          echo $this->getUser[$i]['rank'];
+                          for ($j=0; $j <count($this->getRank); $j++) { 
+                            if ($this->getUser[$i]['rank'] == $this->getRank[$j]['id']) {
+                              echo $this->getRank[$j]['rank_name'];
+                            }
+                          }
                         }
                       } 
                     ?>
@@ -351,27 +355,57 @@ else {
                </div>
             </div>
             <div class="col-lg-3 col-6 text-center">
-               <div class="border-dashed border-1 border-secondary border-radius-md py-3">
-                <h4 class="font-weight-bolder"><span class="small"></span><span id="state1" countto="23980">
+               <div class="border-dashed border-1 border-secondary border-radius-md py-3" style="height: 150px;">
+                <h4 class="font-weight-bolder" style="color: #174e91"><span class="small"></span><span id="state1" countto="23980">
                   <?php 
                     $count = 0;
-                    Session::init();
+                    $station = Session::get("station_id");
+                    $stationtype = Session::get("station_type");
+                    $statname;
                     $admin_id = Session::get("admin_id");
-                    for($i=0; $i<count($this->getBlotter); $i++){
-                      $count++;
-                    } 
-                    echo $count;
+
+                    for ($i=0; $i <count($this->getStation); $i++) { 
+                      if ($this->getStation[$i]['id'] == $station){
+                        $statname = $this->getStation[$i]['station_name'];
+                      }
+                    }
+
+
+
+                    for ($n=0; $n <count($this->getUser); $n++) { 
+                      if ($this->getUser[$n]['id'] == $admin_id) {
+                        for ($m=0; $m <count($this->getStation); $m++) { 
+                          if ($this->getUser[$n]['station_id'] == $this->getStation[$m]['id']) {
+                            if ($this->getStation[$m]['station_type'] == "Main Station") {
+                              for ($t=0; $t <count($this->getBlotter2); $t++) { 
+                                $count++;
+                              }
+                              echo $count;
+                              echo "</span></h4>
+                                      <h6 class='text-dark text-gradient mb-0 text-sm'>Overall data on encoded blotter entries for the year ".date('Y')."</h6>
+                                    </div>";
+                            }
+                            else {
+                              for ($g=0; $g <count($this->getCountSubstat); $g++) { 
+                                $count++;
+                              }
+                              echo $count;
+                              echo "</span></h4>
+                                      <h6 class='text-dark text-gradient mb-0 text-sm'>Blotter from ".$statname."</h6>
+                                    </div>";
+                            }
+                          }
+                        }
+                      }
+                    }
+
                   ?>
-                </span></h4>
-                  <h6 class="text-warning text-gradient mb-0 text-sm">Overall Data</h6>
-               </div>
             </div>
             <div class="col-lg-3 col-6 text-center">
-               <div class="border-dashed border-1 border-secondary border-radius-md py-3">
-                <h4 class="font-weight-bolder"><span class="small"></span><span id="state1" countto="23980">
+               <div class="border-dashed border-1 border-secondary border-radius-md py-3" style="height: 150px;">
+                <h4 class="font-weight-bolder" style="color: #174e91"><span class="small"></span><span id="state1" countto="23980">
                   <?php 
                     $count = 0;
-                    Session::init();
                     $admin_id = Session::get("admin_id");
                     for($i=0; $i<count($this->getBlotter); $i++){
                       if($this->getBlotter[$i]['d_policeuser'] == $admin_id){
@@ -381,71 +415,63 @@ else {
                     echo $count;
                   ?>
                 </span></h4>
-                  <h6 class="text-warning text-sm text-gradient mb-0">Encoded by 
-                    <?php 
-                      Session::init();
-                      $admin_id = Session::get("admin_id");
-                      for($i=0; $i<count($this->getUser); $i++){
-                        if($this->getUser[$i]['id'] == $admin_id){
-                          echo $this->getUser[$i]['fullname'];
-                        }
-                      } 
-                    ?>
+                  <h6 class="text-dark text-sm text-gradient mb-0">My Encoded Blotter 
+                     <?php 
+                    //   $admin_id = Session::get("admin_id");
+                    //   for($i=0; $i<count($this->getUser); $i++){
+                    //     if($this->getUser[$i]['id'] == $admin_id){
+                    //       echo $this->getUser[$i]['fullname'];
+                    //     }
+                    //   } 
+                     ?>
                     </h6>
                </div>
             </div>
              <div class="col-lg-3 col-6 text-center">
-               <div class="border-dashed border-1 border-secondary border-radius-md py-3">
-                <h4 class="font-weight-bolder"><span class="small"></span><span id="state1" countto="23980">
+               <div class="border-dashed border-1 border-secondary border-radius-md py-3" style="height: 150px;">
+                <h4 class="font-weight-bolder" style="color: #174e91"><span class="small"></span><span id="state1" countto="23980">
                     <?php 
                       $count = 0;
-                      Session::init();
                       $admin_id = Session::get("admin_id");
-                      for($i=0; $i<count($this->getBlotter); $i++){
-                        if($this->getBlotter[$i]['remarks'] == 1){
-                          $count++;
-                        }
-                        else if($this->getBlotter[$i]['remarks'] == 1){
-                          for ($k=0; $k <count($this->getBlotter); $k++) { 
-                            if ($this->getBlotter[$k]['d_policeuser'] == $admin_id) {
-                              for ($l=0; $l <count($this->getStation); $l++) { 
-                                if ($this->getUser[$k]['station_id'] == $this->getStation[$k]['id']) {
-                                  if ($this->getStation[$k]['station_type'] == "Main Station") {
-                                    $count++;
-                                  }
-                                  else if ($this->getStation[$k]['station_type'] == "Sub Station") {
-                                    for ($q=0; $q <count($this->getUser) ; $q++) { 
-                                      if ($this->getUser[$q]['id'] == $admin_id) {
-                                        for ($w=0; $w <count($this->getBlotter); $w++) { 
-                                          if ($this->getUser[$q]['station_id'] == $this->getBlotter[$w]['station_id']) {
-                                            $count++;
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        } 
-                      }
-                    echo $count;
-                    ?>
-                </span></h4>
-                  <h6 class="text-warning text-gradient text-sm mb-0">
-                    <?php 
-                      Session::init();
-                      $admin_id = Session::get("admin_id");
+                      $statid = Session::get("station_id");
                       for ($i=0; $i <count($this->getUser); $i++) { 
                         for ($j=0; $j <count($this->getStation) ; $j++) {
                           if ($this->getUser[$i]['id'] == $admin_id) {
                             if ($this->getUser[$i]['station_id'] == $this->getStation[$j]['id']){
                               if ($this->getStation[$j]['station_type'] == "Main Station") {
-                                echo "Recieved Data From Sub Stations";
+                                for ($g=0; $g <count($this->getBlotter2); $g++) { 
+                                  if ($this->getBlotter2[$g]['remarks'] == 1) {
+                                    $count++;
+                                  }
+                                }
                               }
                               else if ($this->getStation[$j]['station_type'] == "Sub Station") {
-                                echo "Forwarded Data To Main Station";
+                                for ($g=0; $g <count($this->getBlotter2); $g++) { 
+                                  if ($this->getBlotter2[$g]['station_id'] == $statid && $this->getBlotter2[$g]['remarks'] == 1) {
+                                    $count++;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    echo $count;
+                    ?>
+                </span></h4>
+                  <h6 class="text-dark text-gradient text-sm mb-0">
+                    <?php 
+                      $admin_id = Session::get("admin_id");
+                      $station = Session::get("station_id");
+                      for ($i=0; $i <count($this->getUser); $i++) { 
+                        for ($j=0; $j <count($this->getStation) ; $j++) {
+                          if ($this->getUser[$i]['id'] == $admin_id) {
+                            if ($this->getUser[$i]['station_id'] == $this->getStation[$j]['id']){
+                              if ($this->getStation[$j]['station_type'] == "Main Station") {
+                                echo "Blotter Reports Received From Sub Stations for the year ".date('Y');
+                              }
+                              else if ($this->getStation[$j]['station_type'] == "Sub Station") {
+                                echo "Forwarded Blotter From ".$this->getStation[$j]['station_name']." To Main Station";
                               }
                             }
                           }
@@ -462,7 +488,23 @@ else {
 
      
       <div class="row mt-2 justify-content-center">
-   <div class="col-sm-7 mt-4 text-center">
+             <div class="col-lg-12 px-4 mt-xl-0 mt-4">
+      <div class="row mt-4">
+         <div class="card px-0 h-100 ">
+   <div class="card-header py-0 pt-3 text-center  px-3">
+      <h6 class="mb-0 mb-2 text-capitalize px-3 mt-3">Summary Tagum City Crime Statistics</h6>
+   </div>
+   <div class="card-body p-3">
+              <div class="bg-gradient-white border-radius-lg py-3 pe-1 mb-3">
+                <div class="chart text-white">
+                  <canvas id="chart-line" width="299" height="120" position="absolute" class="text-white chartjs-render-monitor">
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+   </div>
+   <div class="col-lg-12 mt-4 text-center">
       <div class="card text-center">
          <div class="card-header d-flex text-center pb-0 p-3">
             <h6 class="my-auto px-4 mt-3 ">Recent Encoded Blotter from this Station</h6>
@@ -518,22 +560,7 @@ else {
       </div>
    </div>
 
-   <div class="col-sm-5 px-4 mt-xl-0 mt-4">
-      <div class="row mt-4">
-         <div class="card px-0 h-100 ">
-   <div class="card-header py-0 pt-3 text-center  px-3">
-      <h6 class="mb-0 mb-2 text-capitalize px-3 mt-3">Summary Tagum City Crime Statistics</h6>
-   </div>
-   <div class="card-body p-3">
-              <div class="bg-gradient-white border-radius-lg py-3 pe-1 mb-3">
-                <div class="chart text-white">
-                  <canvas id="chart-line" width="299" height="200" position="absolute" class="text-white chartjs-render-monitor">
-                </div>
-              </div>
-            </div>
-        </div>
-      </div>
-   </div>
+
 </div>
 
    <!-- LABEL PER STATION -->
@@ -1094,13 +1121,13 @@ function printElement(elem) {
     }
 
   </script>
-<script>
+<!-- <script>
   var link = document.getElementById("myLink");
   link.addEventListener("click", myFunction);
 
 function myFunction() {
     window.location = "libraries";
 }
-</script>
+</script> -->
 </body>
 </html>

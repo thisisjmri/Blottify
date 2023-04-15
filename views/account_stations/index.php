@@ -308,7 +308,7 @@ body {
 
                  <div class="text-center card-footer mt-2"  style="padding-bottom: 25px; padding-top: 0px;"><a data-bs-toggle="modal" data-bs-target="#modalstation">
                  <button class="col-sm-12 btn bg-gradient-warning btn-sm mt-0 js-btn-next p-2"  type="button" title="Next">Add Station</button></a>
-                  <a class="col-sm-12 btn bg-gradient-warning btn-sm mt-0 js-btn-next p-2"  type="button" title="Next" data-bs-toggle="modal" data-bs-target="#modalcrime">Add Incident</a></a>
+                  <a class="col-sm-12 btn bg-gradient-warning btn-sm mt-0 js-btn-next p-2"  type="button" title="Next" data-bs-toggle="modal" data-bs-target="#modalcrime">Add Crime</a></a>
                   </div>
               </div>
             </ul>
@@ -595,7 +595,7 @@ body {
                                        </select>
                                     </div>
                                    <div class="py-2">
-                                  <label style="font-family: 'Quicksand'; font-size: 14px;">Station Contact Number</label>
+                                  <label style="font-family: 'Quicksand'; font-size: 14px;">Station Number</label>
                                     <input class="form-control" type="text" id="station_number">
                                     </div>
                                    <div class="row px-3 py-4 pb-0 mb-2">
@@ -714,8 +714,8 @@ body {
                      </div>
                      <div class="mt-2 mb-4">
                         <div class="">
-                           <label>Station Contact Number</label>
-                           <input class="multisteps-form__input form-control" id="stanumber" type="text" placeholder="Station's Contact Number">
+                           <label>Station Number</label>
+                           <input class="multisteps-form__input form-control" id="stanumber" type="text" placeholder="Station's Number">
                         </div>
                      </div>     
                      <div class="mt-2 mb-1">
@@ -734,7 +734,7 @@ body {
                   <div class="modal-dialog modal-dialog-centered modal-sm" role="document">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h6 class="modal-title" id="exampleModalLabel">Add Incident</h6>
+                        <h6 class="modal-title" id="exampleModalLabel">Add Crime</h6>
                         <!-- <div class="form-group pr-5 pt-2 m-0 justify-content-center">
                           <button type="button" class="btn-close bg-secondary justify-content-end" data-bs-dismiss="modal" aria-label="Close"></button>
                        </div> -->
@@ -742,8 +742,8 @@ body {
                       <div class="modal-body">
                        <div class="mt-2 mb-2">
                         <div class="">
-                           <label>Incident Type Name</label>
-                           <input class="multisteps-form__input form-control" id="crime_name" type="text" placeholder="Incident Type Name">
+                           <label>Crime Type Name</label>
+                           <input class="multisteps-form__input form-control" id="crime_name" type="text" placeholder="Crime Type Name">
                         </div>
                      </div>           
                      <div class="mt-2 mb-1">

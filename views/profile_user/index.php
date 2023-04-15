@@ -26,13 +26,10 @@
   </title>
   <!--     Fonts and icons     -->
   <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
-  
   <!-- Nucleo Icons -->
   <link href="public/css/nucleo-icons.css" rel="stylesheet" />
   <link href="public/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-Fh8vZkHqlLgNRbPeYGjzwyK3uu8D4yo6ZJoM6FsdUwvj1k2S00R4jJwFqgLXc/g4" crossorigin="anonymous">
-
 <!--   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script> -->
   <link href="public/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
@@ -408,7 +405,6 @@ if($station_type == "Main Station"){
                           <div style="left: 95px;" class="avatar-edit">
                               <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
                               <label for="imageUpload"></label>
-                              
                               <div class="offset-sm-10 col-md-10">                            
                               </div>   
                           </div>

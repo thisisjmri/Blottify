@@ -56,7 +56,7 @@ class Login_Model extends Model{
 		            	echo "Error..";
 		            }
 					Session::init();
-			        // Session::set('loggedIn',true);
+			        Session::set('loggedIn',false);
 			        Session::set('admin_id',$key);
 			        Session::set('type',$type);
 			        Session::set('station_id',$station_id);

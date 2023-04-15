@@ -12,7 +12,7 @@ class Blotter extends Controller{
 			header('location: login');
 			exit;
 		}else if ($type == 'ADMIN'){
-			header('location: admin_blotter');
+			header('location: admin_dashboardss');
 		}
 	}
 
@@ -71,6 +71,7 @@ class Blotter extends Controller{
         $data['a_lastname'] = $_POST['a_lastname'];
         $data['a_firstname'] = $_POST['a_firstname'];
         $data['a_middlename'] = $_POST['a_middlename'];
+        // $data['a_qualifier'] = $_POST['a_qualifier'];
         $data['a_nickname'] = $_POST['a_nickname'];
         $data['a_citizenship'] = $_POST['a_citizenship'];
         $data['a_sex'] = $_POST['a_sex'];
@@ -94,6 +95,7 @@ class Blotter extends Controller{
         $data['b_lastname'] = $_POST['b_lastname'];
         $data['b_firstname'] = $_POST['b_firstname'];
         $data['b_middlename'] = $_POST['b_middlename'];
+        // $data['b_qualifier'] = $_POST['b_qualifier'];
         $data['b_nickname'] = $_POST['b_nickname'];
         $data['b_citizenship'] = $_POST['b_citizenship'];
         $data['b_sex'] = $_POST['b_sex'];
@@ -114,10 +116,12 @@ class Blotter extends Controller{
         $data['b_otherprov'] = $_POST['b_otherprov'];
         $data['b_occupation'] = $_POST['b_occupation'];
         $data['b_relation'] = $_POST['b_relation'];
+        // $data['b_selectinfluence'] = $_POST['b_selectinfluence'];
         $data['b_influence'] = $_POST['b_influence'];
         $data['c_lastname'] = $_POST['c_lastname'];
         $data['c_firstname'] = $_POST['c_firstname'];
         $data['c_middlename'] = $_POST['c_middlename'];
+        // $data['c_qualifier'] = $_POST['c_qualifier'];
         $data['c_nickname'] = $_POST['c_nickname'];
         $data['c_citizenship'] = $_POST['c_citizenship'];
         $data['c_sex'] = $_POST['c_sex'];
@@ -138,8 +142,22 @@ class Blotter extends Controller{
         $data['c_otherprov'] = $_POST['c_otherprov'];
         $data['c_occupation'] = $_POST['c_occupation'];
         $data['c_workadd'] = $_POST['c_workadd'];
+        // $data['d_type'] = $_POST['d_type'];
+        // $data['d_dtincident'] = $dt_incident;
+        // $data['d_pincident'] = $_POST['d_pincident'];
         $data['d_narrative'] = $_POST['d_narrative'];
+        // $data['d_reporting'] = $_POST['d_reporting'];
+        // $data['d_police'] = $_POST['d_police'];
+        // $data['d_rank'] = $_POST['d_rank'];
         $data['d_policeuser'] = $admin_id;
+        
+        // $data['d_entrynum'] = $_POST['d_entrynum'];
+        // $data['d_station'] = $_POST['d_station'];
+        // $data['d_telephone'] = $_POST['d_telephone'];
+        // $data['d_investigator'] = $_POST['d_investigator'];
+        // $data['d_mobile1'] = $_POST['d_mobile1'];
+        // $data['d_chief'] = $_POST['d_chief'];
+        // $data['d_mobile2'] = $_POST['d_mobile2'];
 
         $this->model->saveBlotter($data);
     }

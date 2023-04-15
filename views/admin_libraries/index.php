@@ -139,10 +139,8 @@ body {
             for ($f=0; $f <count($this->getStation); $f++) { 
               $actv = Session::get("cur_station1");
               $showactive ='nav-link';
-              $showactivename = 'nav-link-text ms-1 text-bold';
               if($this->getStation[$f]['id']==$actv){
                 $showactive = 'nav-link bg-gradient-warning active';
-                $showactivename = 'nav-link-text ms-1 text-white';
               }
               echo "<li class='nav-item py-2' onClick='setActive(".$this->getStation[$f]['id'].")'>
               <a class='".$showactive."'>
@@ -151,7 +149,7 @@ body {
                     <title>document</title>
                     <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'><!--! Font Awesome Pro 6.3.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. --><path d='M32 144a144 144 0 1 1 288 0A144 144 0 1 1 32 144zM176 80c8.8 0 16-7.2 16-16s-7.2-16-16-16c-53 0-96 43-96 96c0 8.8 7.2 16 16 16s16-7.2 16-16c0-35.3 28.7-64 64-64zM144 480V317.1c10.4 1.9 21.1 2.9 32 2.9s21.6-1 32-2.9V480c0 17.7-14.3 32-32 32s-32-14.3-32-32z'/></svg> </svg>
                 </div>
-                <span class='".$showactivename."' style='font-size: 12px;'>".$this->getStation[$f]['station_name']."</span>
+                <span class='nav-link-text ms-1 text-bold' style='font-size: 12px;'>".$this->getStation[$f]['station_name']."</span>
               </a>
             </li>";
             }

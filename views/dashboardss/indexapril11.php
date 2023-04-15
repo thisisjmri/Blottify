@@ -21,51 +21,31 @@
   <link rel="apple-touch-icon" sizes="76x76" href="<?php echo URL;?>public/img/police_tagum.png">
   <link rel="icon" type="image/png" href="<?php echo URL;?>public/img/police_tagum.png">
   <title>
-
+    Dashboard
   </title>
-<!-- NEW DATATABLE -->
- <link href="https://code.jquery.com/jquery-3.5.1.js" rel="stylesheet">
- <link href="https://cdn.datatables.net/1.13.3/js/jquery.dataTables.min.js" rel="stylesheet">
- <link href="https://cdn.datatables.net/1.13.3/js/dataTables.bootstrap5.min.js" rel="stylesheet">
-
-
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <!--     Fonts and icons     -->
   <link href='https://fonts.googleapis.com/css?family=Quicksand' rel='stylesheet'>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap" rel="stylesheet">
   <!-- Nucleo Icons -->
   <link href="<?php echo URL;?>public/css/nucleo-icons.css" rel="stylesheet" />
   <link href="<?php echo URL;?>public/css/nucleo-svg.css" rel="stylesheet" />
   <!-- Font Awesome Icons -->
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="<?php echo URL;?>public/css/nucleo-svg.css" rel="stylesheet" />
-    <!-- CSS Files -->
+  <!-- CSS Files -->
   <link id="pagestyle" href="<?php echo URL;?>public/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
-   <link id="pagestyle" href="<?php echo URL;?>public/css/adminlte.css" rel="stylesheet" />
-  <!-- DataTables -->
+  <link id="pagestyle" href="<?php echo URL;?>public/css/adminlte.css" rel="stylesheet" />
+    <!-- DataTables -->
+  <link id="pagestyle" href="<?php echo URL;?>public/css/soft-ui-dashboard.css?v=1.0.7" rel="stylesheet" />
   <link rel="stylesheet" href="<?php echo URL;?>public/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="<?php echo URL;?>public/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="<?php echo URL;?>public/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-
-  <!-- Select2 -->
-  <link rel="stylesheet" href="<?php echo URL;?>public/plugins/select2/css/select2.min.css">
-  <link rel="stylesheet" href="<?php echo URL;?>public/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
-  <!-- Bootstrap4 Duallistbox -->
-  <link rel="stylesheet" href="<?php echo URL;?>public/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css">
-  <!-- BS Stepper -->
-  <link rel="stylesheet" href="<?php echo URL;?>public/plugins/bs-stepper/css/bs-stepper.min.css">
-  <!-- dropzonejs -->
-  <link rel="stylesheet" href="<?php echo URL;?>public/plugins/dropzone/min/dropzone.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo URL;?>public/css/adminlte.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="<?php echo URL;?>public/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-  <link rel="stylesheet" href="<?php echo URL;?>public/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-  <link rel="stylesheet" href="<?php echo URL;?>public/plugins/datatables-buttons/css/buttons.bootstrap4.min.css"> 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
+<script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 </head>
 <style>
+* {
+  box-sizing: border-box;
+}
   @page { size: auto;  margin: 2mm; }
 * {
   box-sizing: border-box;
@@ -74,8 +54,7 @@
 body {
   font-family: 'Quicksand';font-size: 16px;
   font-weight: bolder;
-}
-@media screen {
+}@media screen {
     #printSection {
         display: none;
     }
@@ -95,14 +74,9 @@ body {
         bottom: 1cm;
     }
 }
-circle {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-</style>                                  
+</style>
 <body class="g-sidenav-show bg-gray-100">
-  <aside class=" sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 bg-white" id="sidenav-main">
+  <aside class="bg-white sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
       <a class="navbar-brand m-0" href="" target="_blank">
@@ -116,28 +90,28 @@ circle {
     <div class="collapse navbar-collapse w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo URL;?>dashboardss">
-            <div class="icon icon-shape icon-sm shadow border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <title>credit-card</title>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path class="color-background" d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"/></svg>
+          <a class="nav-link bg-gradient-dark active" href="<?php echo URL;?>dashboardss">
+            <div class="icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg class="text-white" width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <title>document</title>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path class="color-background" d="M96 32H32C14.33 32 0 46.33 0 64v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160H32c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zM288 32h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32V64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32zm0 160h-64c-17.67 0-32 14.33-32 32v64c0 17.67 14.33 32 32 32h64c17.67 0 32-14.33 32-32v-64c0-17.67-14.33-32-32-32z"/></svg>
               </svg>
             </div>
-            <span class="nav-link-text text-bold ms-1">Dashboard</span>
+            <span class="nav-link-text ms-1 text-white">Dashboard</span>
           </a>
         </li>
-       <li class="nav-item">
+         <li class="nav-item">
           <a class="nav-link" href="<?php echo URL;?>blotter">
-            <div class="icon icon-shape icon-sm shadow border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <svg width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <div class="icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+              <svg class="text-dark" width="16px" height="16px" viewBox="0 0 40 44" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <title>document</title>
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path class="background-color" d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-72v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path class="color-background" d="M224 136V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24V160H248c-13.2 0-24-10.8-24-24zm64 236c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-64c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12v8zm0-72v8c0 6.6-5.4 12-12 12H108c-6.6 0-12-5.4-12-12v-8c0-6.6 5.4-12 12-12h168c6.6 0 12 5.4 12 12zm96-114.1v6.1H256V0h6.1c6.4 0 12.5 2.5 17 7l97.9 98c4.5 4.5 7 10.6 7 16.9z"/></svg>
               </svg>
             </div>
             <span class="nav-link-text ms-1 text-bold">Blotter</span>
           </a>
         </li>
-        <?php
+<?php
 $station_type = Session::get("station_type");
 $type = Session::get('station_type');
 if($station_type == "Main Station"){
@@ -157,7 +131,7 @@ if($station_type == "Main Station"){
 
           echo "<li class='nav-item'>
             <input type='text' id='station_type' value='$type = Session::get('station_type');' hidden>
-            <a class='nav-link' data-bs-toggle='collapse' href='#submenu1' href='#' id='myLink'>
+            <a class='nav-link' data-bs-toggle='collapse' href='#submenu1' href='#'>
               <div class='icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center'>
                 <svg width='12px' height='12px' viewBox='0 0 42 42' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
                   <title>box-3d-50</title>
@@ -166,19 +140,12 @@ if($station_type == "Main Station"){
               <span class='nav-link-text ms-1 text-bold'>Library</span>
             </a>
           </li>
-          <ul class='collapse show nav flex-column ms-1' id='submenu1' data-bs-parent='#menu'>";
-
-        if ($station_type == "Main Station") {
+          <ul class='collapse nav flex-column ms-1' id='submenu1' data-bs-parent='#menu'>";
 
             for ($f=0; $f <count($this->getStation); $f++) {
-              $actv = Session::get("cur_station");
-              $showactive ='nav-link';
-              if($this->getStation[$f]['id']==$actv){
-                $showactive = 'nav-link bg-gradient-warning active';
-              }
               if ($this->getStation[$f]['station_type'] == 'Main Station') {
-                echo "<li class='nav-item py-2' onClick='setActive(".$this->getStation[$f]['id'].",0)'>
-                <a class='".$showactive."'>
+                echo "<li class='nav-item py-2 cursor-pointer' onClick='setActive(".$this->getStation[$f]['id'].",0)'>
+                <a class='nav-link'>
                   <div class='icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center'>
                     <svg class='text-dark' width='16px' height='16px' viewBox='0 0 40 44' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
                       <title>document</title>
@@ -189,8 +156,8 @@ if($station_type == "Main Station"){
               </li>";
               }
               else {
-                echo "<li class='nav-item py-2' onClick='setActive(".$this->getStation[$f]['id'].",1)'>
-                <a class='".$showactive."'>
+                echo "<li class='nav-item py-2 cursor-pointer' onClick='setActive(".$this->getStation[$f]['id'].",1)'>
+                <a class='nav-link'>
                   <div class='icon icon-shape icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center'>
                     <svg class='text-dark' width='16px' height='16px' viewBox='0 0 40 44' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
                       <title>document</title>
@@ -202,51 +169,47 @@ if($station_type == "Main Station"){
               }
             }
 
-        }
-
 }
-else if ($station_type == "Sub Station"){
+else {
   echo "<li class='nav-item'>
     <input type='text' id='station_type' value='$type = Session::get('station_type');' hidden>
-    <a class='nav-link bg-gradient-warning active' class='nav-link'  href='#' id='myLink'>
-      <div class='icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center'>
+    <a class='nav-link' class='nav-link'  href='#' id='myLink'>
+      <div class='icon icon-shape icon-sm shadow border-radius-md text-center me-2 d-flex align-items-center justify-content-center'>
         <svg class='text-white' width='16px' height='16px' viewBox='0 0 40 44' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'>
           <title>document</title>
           <svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 576 512'><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path class='color-background' d='M572.694 292.093L500.27 416.248A63.997 63.997 0 0 1 444.989 448H45.025c-18.523 0-30.064-20.093-20.731-36.093l72.424-124.155A64 64 0 0 1 152 256h399.964c18.523 0 30.064 20.093 20.73 36.093zM152 224h328v-48c0-26.51-21.49-48-48-48H272l-64-64H48C21.49 64 0 85.49 0 112v278.046l69.077-118.418C86.214 242.25 117.989 224 152 224z'/></svg>
         </svg>
       </div>
-      <span class='nav-link-text ms-1 text-white'>Library</span>
+      <span class='nav-link-text ms-1 text-bold'>Library</span>
     </a>
   </li>";
 }
+
+
+
+        
+
 ?>
-        <!-- <li class="nav-item">
-          <a class="nav-link bg-gradient-warning active" href="echo URL;libraries_main">
-            <div class="icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-              <svg class="text-white" width="12px" height="12px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <title>box-3d-50</title>
-               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License)<path class="color-background" d="M572.694 292.093L500.27 416.248A63.997 63.997 0 0 1 444.989 448H45.025c-18.523 0-30.064-20.093-20.731-36.093l72.424-124.155A64 64 0 0 1 152 256h399.964c18.523 0 30.064 20.093 20.73 36.093zM152 224h328v-48c0-26.51-21.49-48-48-48H272l-64-64H48C21.49 64 0 85.49 0 112v278.046l69.077-118.418C86.214 242.25 117.989 224 152 224z"/></svg>
-            </div>
-            <span class="nav-link-text ms-1 text-bold text-white">Library</span>
-          </a>
-        </li> -->
+
+
   </aside>
- 
-<div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
-  <!-- NARIGATION BAR -->
-      <div class="page-header min-height-150 border-radius-xl mt-4 mx-4" style="background-image: url('public/img/curved-images/curved0.jpg'); background-position-y: 50%;">
-        <span class="mask bg-gradient-warning opacity-5"></span>
+  
+
+  <div class="main-content position-relative bg-gray-100 max-height-vh-100 h-100">
+   <!-- NAVIGATION BAR -->
+      <div class="page-header min-height-150 border-radius-xl mt-4 mx-4" style="background-image: url('public/img/curved-images/curved101.jpg'); background-position-y: 50%;">
+        <span class="mask bg-gradient-dark opacity-3"></span>
       </div>
 
-      <nav class="navbar navbar-main navbar-expand-lg shadow-blur mx-5 mt-n5   px-0 mx-4 shadow-none border-radius-xl position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur" navbar-scroll="true">
-
+      <nav class="navbar navbar-main navbar-expand-lg shadow-blur mx-5 mt-n5  px-0 mx-4 shadow-none border-radius-xl position-sticky blur shadow-blur mt-4 left-auto top-1 z-index-sticky" id="navbarBlur" navbar-scroll="true">
+        
       <div class="container-fluid py-1 px-3">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Blottify</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page" id="nav_subname">Blotter</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">Blotter</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0" id="nav_name">Dashboard</h6>
+          <h6 class="font-weight-bolder mb-0">Dashboard</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -255,34 +218,32 @@ else if ($station_type == "Sub Station"){
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a class="btn  bg-gradient-warning btn-sm mb-0 me-3" target="_blank" href="blotter">Add Blotter</a>
+              <a class="btn  bg-gradient-dark btn-sm mb-0 me-3" target="_blank" href="blotter">Add Blotter</a>
             </li>
             <li class="nav-item dropdown pe-2 d-flex align-items-center">
-              <a href="javascript:;" class="nav-link p-0" id="dropdownprofile" data-bs-toggle="dropdown" aria-expanded="false">
+              <a  href="javascript:;" class="nav-link p-0" id="dropdownprofile" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user me-sm-1 cursor-pointer"></i>
-                <span class="d-sm-inline p-0 pb-0 pe-2 d-none text-bold">Profile</span>
+                <span class="d-sm-inline d-none p-0 pb-0 pe-2 text-bold">Profile</span>
               </a>
               <ul class="dropdown-menu dropdown-menu-end px-2 py-3 ms-n4" aria-labelledby="dropdownprofile">
                 <li class="mb-2">
                   <a class="dropdown-item border-radius-md" href="<?php echo URL;?>profile_user">
                     <div class="d-flex py-1">
-                       <div class="my-auto avatar avatar-lg position-relative">
+                      <div class="my-auto avatar avatar-lg position-relative">
                         <?php 
-                              Session::init();
                               $admin_id = Session::get("admin_id");
                               for($i=0; $i<count($this->getUser); $i++){
                                 if($this->getUser[$i]['id'] == $admin_id){
                                   $pic = $this->getUser[$i]['image'];
                                 }
-                              }
+                              } 
                             ?>
               <img src="<?php echo ($pic =='') ? "url('public/img/bruce-mars.jpg')" : "uploads/profile_image/".$pic ?>" alt="profile_image" class="w-100 avatar avatar-lg me-3" style="object-fit: cover; width: 100%; height: 100%;">
                       </div>
-                      <div class="d-flex flex-column justify-content-center">
+                      <div class="d-flex flex-column justify-content-start">
                         <h6 class="text-sm font-weight-normal mb-1">
                           <span class="font-weight-bold">
                             <?php 
-                              Session::init();
                               $admin_id = Session::get("admin_id");
                               for($i=0; $i<count($this->getUser); $i++){
                                 if($this->getUser[$i]['id'] == $admin_id){
@@ -295,11 +256,14 @@ else if ($station_type == "Sub Station"){
                         <p class="text-xs text-secondary mb-0">
                           <i class="fa fa-user me-1"></i>
                             <?php 
-                              Session::init();
                               $admin_id = Session::get("admin_id");
                               for($i=0; $i<count($this->getUser); $i++){
                                 if($this->getUser[$i]['id'] == $admin_id){
-                                  echo $this->getUser[$i]['rank'];
+                                  for ($j=0; $j <count($this->getRank); $j++) { 
+                                    if ($this->getUser[$i]['rank'] == $this->getRank[$j]['id']) {
+                                      echo $this->getRank[$j]['rank_name'];
+                                    }
+                                  }
                                 }
                               } 
                             ?>
@@ -318,7 +282,10 @@ else if ($station_type == "Sub Station"){
                 </div>
               </ul>
             </li>
-            <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+          </ul>
+            </li>
+
+            <li class="nav-item d-xl-none ps-3 px-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
                 <div class="sidenav-toggler-inner">
                   <i class="sidenav-toggler-line"></i>
@@ -327,262 +294,295 @@ else if ($station_type == "Sub Station"){
                 </div>
               </a>
             </li>
+            <?php
+
+            $station_type = Session::get("station_type");
+            if ($station_type == "Main Station") {
+              echo "<li class='nav-item dropdown pe-2 d-flex align-items-center'>
+                    <a href='javascript:;' class='nav-link text-body p-0' id='dropdownMenuButton' data-bs-toggle='dropdown' aria-expanded='true'>
+                      <i class='fa fa-bell cursor-pointer' id='bell'></i>
+                      <span class='position-absolute top-0 start-100 translate-middle bg-danger' id='notification-badge'>
+                      <span class='visually-hidden'>unread messages</span>
+                    </span>
+                    </a>
+                    <ul class='dropdown-menu dropdown-menu-end  px-2 py-3 me-sm-n4 z-index-sticky position-absolute z-index-5' id='notifications-container' aria-labelledby='dropdownMenuButton'>
+                    </ul>
+                  </li>";
+            }
+
+            ?>
           </ul>
         </div>
       </div>
 
     </nav>
 
-    <!-- SVG -->
-    <!-- <h1>Tagum City Map</h1> -->
- <!--    <svg id="map" viewBox="0 0 800 600">
-      <path id="city-path" d="M150 100 L200 150 L150 200 L100 150 L150 100 Z" fill="#F0F8FF" stroke="#000000" stroke-width="2"/>
-    </svg>
- -->
+    <!-- LABEL PER STATION -->
+    <div class="container-fluid py-4" style="font-family: 'Quicksand';font-size: 16px;">
+      <div class="row">
+          <div class="col-12">
+   <div class="card">
+      <div class="card-body p-3">
+         <div class="row">
+             <div class="col-lg-3 col-6 text-center">
+               <div class=" border-secondary border-radius-md py-4">
+                <h4 class=" text-lg"><span class="small"></span><span >Welcome Back,</span></h4>
+                  <h5 style="font-family: 'Quicksand'; color: #174e91;" class="mb-0 text-lg">
+                    <?php 
+                      $admin_id = Session::get("admin_id");
+                      for($i=0; $i<count($this->getUser); $i++){
+                        if($this->getUser[$i]['id'] == $admin_id){
+                          echo $this->getUser[$i]['fullname'];
+                        }
+                      } 
+                    ?>
+                  </h5>
+                  <p class="text-sm m-0 text-bold pt-2">
+                    <?php 
+                      $admin_id = Session::get("admin_id");
+                      for($i=0; $i<count($this->getUser); $i++){
+                        if($this->getUser[$i]['id'] == $admin_id){
+                          for ($j=0; $j <count($this->getRank); $j++) { 
+                            if ($this->getUser[$i]['rank'] == $this->getRank[$j]['id']) {
+                              echo $this->getRank[$j]['rank_name'];
+                            }
+                          }
+                        }
+                      } 
+                    ?>
+                  </p>
+               </div>
+            </div>
+            <div class="col-lg-3 col-6 text-center">
+               <div class="border-dashed border-1 border-secondary border-radius-md py-3" style="height: 150px;">
+                <h4 class="font-weight-bolder" style="color: #174e91"><span class="small"></span><span id="state1" countto="23980">
+                  <?php 
+                    $count = 0;
+                    $station = Session::get("station_id");
+                    $stationtype = Session::get("station_type");
+                    $statname;
+                    $admin_id = Session::get("admin_id");
 
-<div class="px-6 py-4">
-</div>
-
-    <!-- START -->
-<div class="card  mx-5 mb-5" style="border-color: gray; border-width: thin;">
-   <div class="card-header pb-0">
-<div class="d-lg-flex">
-<?php
-$station_type = Session::get("station_type");
-if($station_type == "Main Station"){
-  echo "<div class='w-2 h-3 pl-4 cursor-pointer'><a href='libraries_main'>
-</div></a>";
-}
-?>
-
-</div>
-<div class="container px-4">
-  <div class="row gx-2 justify-content-end">
-    <div class="col-lg-8 col-md-6">
-      <h6 class="pt-2" style="margin-bottom: 0px;">
-        <?php
-        $admin_id = Session::get("admin_id");
-        $station_type = Session::get("station_type");
-        if($station_type == "Main Station"){
-          $cur_station = Session::get("cur_station");
-        }
-        else{
-          $cur_station = Session::get("station_id");
-        }
-        
-        for($m=0; $m<count($this->getStation); $m++){
-          if($cur_station == $this->getStation[$m]['id']){
-            echo $this->getStation[$m]['station_name']." | ";
-          }
-        }
-        $count = 0;
-          for ($i=0; $i <count($this->getBlotter); $i++) {
-            for ($j=0; $j <count($this->getStation); $j++) {
-              if($cur_station == $this->getBlotter[$i]['station_id']){
-                if ($this->getBlotter[$i]['station_id'] == $this->getStation[$j]['id']) {
-                  if ($this->getStation[$j]['station_type'] == 'Main Station') {
-                    if ($this->getBlotter[$i]['remarks'] == 0) {
-                      $count++;
+                    for ($i=0; $i <count($this->getStation); $i++) { 
+                      if ($this->getStation[$i]['id'] == $station){
+                        $statname = $this->getStation[$i]['station_name'];
+                      }
                     }
-                    else if ($this->getBlotter[$i]['remarks'] == 1) {
-                      $count++;
+
+
+
+                    for ($n=0; $n <count($this->getUser); $n++) { 
+                      if ($this->getUser[$n]['id'] == $admin_id) {
+                        for ($m=0; $m <count($this->getStation); $m++) { 
+                          if ($this->getUser[$n]['station_id'] == $this->getStation[$m]['id']) {
+                            if ($this->getStation[$m]['station_type'] == "Main Station") {
+                              for ($t=0; $t <count($this->getBlotter); $t++) { 
+                                $count++;
+                              }
+                              echo $count;
+                              echo "</span></h4>
+                                      <h6 class='text-dark text-gradient mb-0 text-sm'>Overall Data of Encoded Blotter</h6>
+                                    </div>";
+                            }
+                            else {
+                              for ($g=0; $g <count($this->getCountSubstat); $g++) { 
+                                $count++;
+                              }
+                              echo $count;
+                              echo "</span></h4>
+                                      <h6 class='text-dark text-gradient mb-0 text-sm'>Blotter from ".$statname."</h6>
+                                    </div>";
+                            }
+                          }
+                        }
+                      }
                     }
-                  }
-                  else if ($this->getStation[$j]['station_type'] == 'Sub Station') {
-                    // if ($this->getBlotter[$i]['remarks'] == 0) {
-                    //   $count++;
-                    // }
-                    // else if ($this->getBlotter[$i]['remarks'] == 1) {
-                      $count++;
-                    // }
-                  }
-                }
-              }
-            }
-          }
-        echo $count." Blotter Files";
-         ?></h6>
 
-    </div>
-
-    <div class="col-lg-2 col-md-6"> 
-    </div>
-    <div class="col-lg-2 col-md-6">
-          <label style="font-family: 'Quicksand';">FILTER:</label>
-          <select class="form-select bg-outoine-dark" id="cfilter">
-           <option value="daily">Daily</option>
-           <option value="monthly">Monthly</option>
-           <option value="annual1">Annual</option>
-           <option value="custom">Custom</option>
-         </select>
-    </div>
-  </div>
-</div>
-<!-- END CONT -->
-
-      <!-- CONTAINER FOR DAILY -->
-<div class="container px-4 my-3" id="dailylabel">
-  <div class="row gx-2 justify-content-end">
-    <div class="col-lg-8  col-md-6">
-    </div>
-    <div class="col-lg-2 col-md-6">
-    </div>
-    <div class="col-lg-2 col-md-6">
-    <label style="font-family: 'Quicksand';">Pick a date:</label>
-     <input type="date" style="font-family: 'Quicksand';font-size: 12px;" class="form-control" id="daily">
-    </div>
-  </div>
-</div>
-<!-- END CONT -->
-
-<!-- CONTAINER FOR MONTH -->
-<div class="container px-4 my-3" id="monthlylabel">
-  <div class="row gx-2 justify-content-end">
-    <div class="col-lg-8  col-md-6" >
-    </div>
-    <div class="col-lg-2 col-md-6">
-    </div>
-    <div class="col-lg-2 col-md-6">
-    <label style="font-family: 'Quicksand';">Pick a month:</label>
-     <input type="month" style="font-family: 'Quicksand';font-size: 12px;" class="form-control" id="monthly">
-    </div>
-  </div>
-</div>
-<!-- END CONT -->
-
-<!-- CONTAINER FOR YEAR -->
-<div class="container px-4 my-3" id="annual1label">
-  <div class="row gx-2 justify-content-end">
-    <div class="col-lg-8  col-md-6">
-    </div>
-    <div class="col-lg-2 col-md-6">
-    </div>
-    <div class="col-lg-2 col-md-6">
-      <label style="font-family: 'Quicksand';">Pick a year:</label>
-        <select id="annual1" class="form-select">
-       </select>
-    </div>
-  </div>
-</div>
-<!-- END CONT -->
-
-<!-- CONTAINER FOR CUSTOM -->
-<div class="container px-4 my-3">
-  <div class="row gx-2 justify-content-end">
-    <div class="col-lg-8  col-md-6" >
-    </div>
-    <div class="col-lg-2 col-md-6">
-       <label id="startlabel" style="font-family: 'Quicksand'; font-size: 12px;">Start Date</label>
-     <input type="date" style="font-family: 'Quicksand';font-size: 12px;" class="form-control" id="start">
-    </div>
-    <div class="col-lg-2 col-md-6">
-       <label id="endlabel" style="font-family: 'Quicksand';font-size: 12px;">End Date</label>
-     <input type="date" style="font-family: 'Quicksand';font-size: 12px;" class="form-control" id="end">
-    </div>
-  </div>
-</div>
-<!-- END CONT -->
-
-<!-- CONTAINER FOR GENERATE -->
-<div class="container px-4 my-3">
-  <div class="row gx-2 justify-content-end">
-    <div class="col-lg-8  col-md-6">
-    </div>
-    <div class="col-lg-2 col-md-6">
-    </div>
-    <div class="col-lg-2 col-md-6 pt-3">
-      <button type="button" class="btn btn-outline-dark btn-sm mb-4  px-2 px-0 w-generate" id="gen">Generate</button>
-    </div>
-  </div>
-</div>
-<!-- END CONT -->
-
-
-<div class="card-header pb-0 pt-0">
-<div class="d-lg-flex">
-</div>
-
-   <div class="row card-body pb-0 pt-0 px-0 row-cols-4 justify-content-end pb-0">
-   <div class="form-group justify-content-end text-end px-1">
-    
-    </div>
-
-   </div> 
-   <?php
-   if($station_type != "Main Station"){
-      echo "<div class='row card-body pt-0  px-3 row-cols-5 justify-content-start pb-0' style='height: 75px;'>
-     <div class='form-group justify-content-end text-end p-0 m-0'>
-      <button type='button' class='btn btn-outline-warning btn-sm mb-2 px-0 w-generate' data-bs-toggle='modal' data-bs-target='#trigger' class='cursor-pointer' id='mForward'>Forward Multiple Files</button>
+                  ?>
+            </div>
+            <div class="col-lg-3 col-6 text-center">
+               <div class="border-dashed border-1 border-secondary border-radius-md py-3" style="height: 150px;">
+                <h4 class="font-weight-bolder" style="color: #174e91"><span class="small"></span><span id="state1" countto="23980">
+                  <?php 
+                    $count = 0;
+                    $admin_id = Session::get("admin_id");
+                    for($i=0; $i<count($this->getBlotter); $i++){
+                      if($this->getBlotter[$i]['d_policeuser'] == $admin_id){
+                        $count++;
+                      }
+                    } 
+                    echo $count;
+                  ?>
+                </span></h4>
+                  <h6 class="text-dark text-sm text-gradient mb-0">Blotters Encoded by 
+                    <?php 
+                      $admin_id = Session::get("admin_id");
+                      for($i=0; $i<count($this->getUser); $i++){
+                        if($this->getUser[$i]['id'] == $admin_id){
+                          echo $this->getUser[$i]['fullname'];
+                        }
+                      } 
+                    ?>
+                    </h6>
+               </div>
+            </div>
+             <div class="col-lg-3 col-6 text-center">
+               <div class="border-dashed border-1 border-secondary border-radius-md py-3" style="height: 150px;">
+                <h4 class="font-weight-bolder" style="color: #174e91"><span class="small"></span><span id="state1" countto="23980">
+                    <?php 
+                      $count = 0;
+                      $admin_id = Session::get("admin_id");
+                      $statid = Session::get("station_id");
+                      for ($i=0; $i <count($this->getUser); $i++) { 
+                        for ($j=0; $j <count($this->getStation) ; $j++) {
+                          if ($this->getUser[$i]['id'] == $admin_id) {
+                            if ($this->getUser[$i]['station_id'] == $this->getStation[$j]['id']){
+                              if ($this->getStation[$j]['station_type'] == "Main Station") {
+                                for ($g=0; $g <count($this->getBlotter); $g++) { 
+                                  if ($this->getBlotter[$g]['remarks'] == 1) {
+                                    $count++;
+                                  }
+                                }
+                              }
+                              else if ($this->getStation[$j]['station_type'] == "Sub Station") {
+                                for ($g=0; $g <count($this->getBlotter); $g++) { 
+                                  if ($this->getBlotter[$g]['station_id'] == $statid && $this->getBlotter[$g]['remarks'] == 1) {
+                                    $count++;
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    echo $count;
+                    ?>
+                </span></h4>
+                  <h6 class="text-dark text-gradient text-sm mb-0">
+                    <?php 
+                      $admin_id = Session::get("admin_id");
+                      $station = Session::get("station_id");
+                      for ($i=0; $i <count($this->getUser); $i++) { 
+                        for ($j=0; $j <count($this->getStation) ; $j++) {
+                          if ($this->getUser[$i]['id'] == $admin_id) {
+                            if ($this->getUser[$i]['station_id'] == $this->getStation[$j]['id']){
+                              if ($this->getStation[$j]['station_type'] == "Main Station") {
+                                echo "Received Blotter from Sub Stations";
+                              }
+                              else if ($this->getStation[$j]['station_type'] == "Sub Station") {
+                                echo "Forwarded Blotter From ".$this->getStation[$j]['station_name']." To Main Station";
+                              }
+                            }
+                          }
+                        }
+                      }
+                    ?>
+                  </h6>
+               </div>
+            </div>
+          </div>
       </div>
-     </div>";
-   }
-   ?>
+   </div>
 </div>
-  <div class="table-responsive mx-3 px-3 pb-5">
-    <table class="table align-items-center mb-0 py-2" id="example4" >
+
+     
+      <div class="row mt-2 justify-content-center">
+             <div class="col-lg-12 px-4 mt-xl-0 mt-4">
+      <div class="row mt-4">
+         <div class="card px-0 h-100 ">
+   <div class="card-header py-0 pt-3 text-center  px-3">
+      <h6 class="mb-0 mb-2 text-capitalize px-3 mt-3">Summary Tagum City Crime Statistics</h6>
+   </div>
+   <div class="card-body p-3">
+              <div class="bg-gradient-white border-radius-lg py-3 pe-1 mb-3">
+                <div class="chart text-white">
+                  <canvas id="chart-line" width="299" height="120" position="absolute" class="text-white chartjs-render-monitor">
+                </div>
+              </div>
+            </div>
+        </div>
+      </div>
+   </div>
+   <div class="col-lg-12 mt-4 text-center">
+      <div class="card text-center">
+         <div class="card-header d-flex text-center pb-0 p-3">
+            <h6 class="my-auto px-4 mt-3 ">Recent Encoded Blotter from this Station</h6>
+         </div>
+         <div class="table-responsive m-3 p-3">
+    <table class="table align-items-center mb-0 py-0">
       <thead>
         <tr>
-          <th class="text-uppercase text-xxs font-weight-bolder">In-charged</th>
-          <th class="text-uppercase text-xxs text-center font-weight-bolder ps-2">Case Number</th>
-          <th class="text-uppercase text-xxs text-center font-weight-bolder">Date and Time</th>
-          <th class="text-center text-uppercase text-xxs font-weight-bolder">Remarks</th>
+          <th class="text-uppercase text-xs font-weight-bolder">In-charged</th>
+          <th class="text-uppercase text-xs font-weight-bolder ps-2">Case Number</th>
+          <th class="text-center text-uppercase text-xs font-weight-bolder">Date and Time</th>
         </tr>
       </thead>
       <tbody>
         <?php
-        for($m=0; $m<count($this->getBlotter); $m++){
-            if($cur_station == $this->getBlotter[$m]['station_id']){
-                
-                  $id_temp = $this->getBlotter[$m]['id'];
-                ?>
-                
-                <tr data-bs-toggle="modal" data-bs-target="#exampleModal" class="cursor-pointer" onclick='addInfo("<?php echo $this->getBlotter[$m]['id'] ?>")'>
-
-                  <?php
-                  echo "<td >
-                    <div class='d-flex px-2 py-1'>
-                      <div>";
-                      for($n=0; $n<count($this->getUser); $n++){
-                        if($this->getUser[$n]['id'] == $this->getBlotter[$m]['d_policeuser']){
-                          $pic = $this->getUser[$n]['image']; 
-                          ?>
-                            <img src="<?php echo ($pic =='') ? "public/img/bruce-mars.jpg" : "uploads/profile_image/".$pic ?>" class="avatar avatar-sm me-3" style="object-fit: cover; width: 100%; height: 100%;">
-                      <?php    echo "</div>
-                      <div class='d-flex flex-column justify-content-center'>
-                      <h6 class='mb-0 text-xs'>".$this->getUser[$n]['fullname']."</h6>
-                          <p class='text-xs text-secondary mb-0'>".$this->getUser[$n]['email']."</p>";
-                        }
-                      }
-                      echo "</div>
-                    </div>
-                  </td>
-                  <td>
-                    <p class='text-xs text-center font-weight-bold mb-0'>".$this->getBlotter[$m]['id']."</p>
-                  </td>
-                  <td class='align-middle text-center'>
-                    <span class='text-secondary text-xs font-weight-bold'>".$this->getBlotter[$m]['dt_reported']."</span>
-                  </td>
-                  <td>";
-                  if($this->getBlotter[$m]['remarks']==0){
-                    echo "<div class='text-secondary text-xs text-center font-weight-bold'><span class='badge bg-gradient-info'>Not Forwarded</span></div>";
-                  }
-                  else{
-                    echo "<div class='text-secondary text-xs text-center font-weight-bold'><span class='badge bg-gradient-secondary'>Forwarded</span></div>";
-                  }
-                  echo "</td>
-                </tr>";
-
+        for($m=0; $m<count($this->getBlotter1); $m++){
+            ?>
             
-          }
-            
+            <tr data-bs-toggle="modal" data-bs-target="#exampleModal" class="cursor-pointer" onclick='addInfo("<?php echo $this->getBlotter1[$m]['id'] ?>")'>
+
+              <?php
+              echo "<td >
+                <div class='d-flex px-2 py-1'>
+                  <div>";
+                  for($n=0; $n<count($this->getUser); $n++){
+                    if($this->getUser[$n]['id'] == $this->getBlotter1[$m]['d_policeuser']){
+                      $pic = $this->getUser[$n]['image']; 
+                      ?>
+                        <img src="<?php echo ($pic =='') ? "public/img/bruce-mars.jpg" : "uploads/profile_image/".$pic ?>" class="avatar avatar-sm me-3" style="object-fit: cover; width: 100%; height: 100%;">
+                  <?php    echo "</div>
+                  <div class='d-flex flex-column justify-content-center'>
+                  <h6 class='mb-0 text-xs'>".$this->getUser[$n]['fullname']."</h6>
+                      <p class='text-xs text-secondary mb-0'>".$this->getUser[$n]['email']."</p>";
+                    }
+                  }
+                  echo "</div>
+                </div>
+              </td>
+              <td>
+                <p class='text-xs text-center font-weight-bold mb-0'>".$this->getBlotter1[$m]['id']."</p>
+              </td>
+              <td class='align-middle text-center'>
+                <span class='text-secondary text-xs font-weight-bold'>".$this->getBlotter1[$m]['dt_reported']."</span>
+              </td>
+              <td>
+            </tr>";
         }
         ?>
       </tbody>
     </table>
   </div>
+
+      </div>
+   </div>
+
+
 </div>
-    <!-- END -->
-     <!-- Modal FOR MAIN STATION-->
+
+   <!-- LABEL PER STATION -->
+    <div class="container-fluid py-4" style="font-family: 'Quicksand';font-size: 16px;">
+      <div class="row">
+        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+          <div class="card" >
+          </div>
+        </div>       
+        <!-- INSERT HERE -->
+      </div>
+      <div class="row my-4">
+        <div class="col-lg-8 col-md-6 mb-md-0 mb-4">
+          <div class="card">    
+            <!-- INSERT MAIN -->
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <!-- data-bs-toggle='modal' data-bs-target='#notif_modal' -->
+
+  <!-- Modal FOR NOTIFICATION -->
               <div class="modal fade modal-xl" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" style="font-family: 'Open Sans'; font-size: 15px; font-family: 'Open Sans', sans-serif;">
                   <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
                     <div class="modal-content modal-xl px-4">
@@ -592,11 +592,10 @@ if($station_type == "Main Station"){
                        </div>
                       </div>
                       <div class="modal-header">
-                        <h6 class="modal-title" id="exampleModalLabel">Case Number 18271626712167</h6>
+                        <h6 class="modal-title" id="exampleModalLabel">Case Number 1</h6>
                            <div>
                             <a class="btn bg-gradient-danger btn-sm mb-0 me-0 mx-1" id="downloadBtn">PDF</a>
-                           <a class="btn bg-gradient-secondary btn-sm mb-0 me-0 mx-1" id="Print">Print</a>
-                           <a class="btn bg-gradient-success btn-sm mb-0 me-0 mx-1" id="forward_button" onclick="inForward()">Forward</a></div>
+                           <a class="btn bg-gradient-secondary btn-sm mb-0 me-0 mx-1" id="Print">Print</a></div>
                       </div>
                       <div class="modal-body" id="printThis">
                       <div class="row">
@@ -961,76 +960,7 @@ Keep the copy of this Incident Record Form (IRF). An update of the progress of t
       </div>     
     </div>
 </div>
-  <!-- Modal Trigger -->
-<div class="modal fade" id="trigger" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog modal-xl" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h6 class="modal-title" id="trigger">Forward Multiple Blotter Case</h6>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="table-responsive mx-3 px-3">
-           <div class="row card-body pt-3 pb-0  px-0 row-cols-5 justify-content-end pb-0" style="height: 75px;">
-   <div class="form-group justify-content-end text-end">
-    <button type="button" class="btn bg-gradient-success btn-sm mb-2 px-0 w-85" id="allForward">Forward</button>
-    </div>
 
-   </div> 
-   <table class="table align-items-center mb-0 py-2 pb-4" id="example6">
-  <thead>
-    <tr>
-      <th class="text-uppercase text-xs font-weight-bolder px-2" style="width: 26px;"><input type="checkbox" id="select-all">  Select All</th>
-      <th class="text-uppercase text-xs font-weight-bolder">In-charged</th>
-      <th class="text-uppercase text-xs font-weight-bolder ps-2">Case Number</th>
-      <th class="text-center text-uppercase text-xs font-weight-bolder">Date and Time</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-      for($f=0; $f<count($this->getmForward); $f++){
-        if($cur_station == $this->getmForward[$f]['station_id']){
-          for($g=0; $g<count($this->getUser); $g++){
-            if($this->getmForward[$f]['d_policeuser']==$this->getUser[$g]['id']){
-              echo "<tr>
-                <td><input type='checkbox' class='checkbox' value='".$this->getmForward[$f]['id']."'></td>
-                <td>
-                  <div class='d-flex px-2 py-1'>
-                    <div class='d-flex flex-column justify-content-center'>
-                      <h6 class='mb-0 text-xs font-weight-bolder text-uppercase'>".$this->getUser[$g]['fullname']."</h6>
-                      <p class='text-secondary mb-0  text-xs font-weight-bolder'>".$this->getUser[$g]['email']."</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p class='font-weight-bold mb-0  text-xs font-weight-bolder text-uppercase'>".$this->getmForward[$f]['id']."</p>
-                </td>
-                <td class='align-middle text-center'>
-                  <span class='text-secondary text-xs font-weight-bold'>".$this->getmForward[$f]['dt_reported']."</span>
-                </td>
-              </tr>";
-            }
-          }
-        }
-      }
-    ?>
-  </tbody>
-</table>
-
-  </div>
-      </div>
-      <div class="modal-footer">
-      </div>
-    </div>
-  </div>
-</div>
-  <!-- Swal plugin -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-  <!-- jQuery -->
-  <script src="<?php echo URL;?>public/plugins/jquery/jquery.min.js"></script>
   <!--   Core JS Files   -->
   <script src="<?php echo URL;?>public/js/core/popper.min.js"></script>
   <script src="<?php echo URL;?>public/js/core/bootstrap.min.js"></script>
@@ -1039,27 +969,8 @@ Keep the copy of this Incident Record Form (IRF). An update of the progress of t
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
   <script src="<?php echo URL;?>public/js/soft-ui-dashboard.min.js?v=1.0.7"></script>
-<!-- Bootstrap 4 -->
-<script src="<?php echo URL;?>public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- Select2 -->
-<script src="<?php echo URL;?>public/plugins/select2/js/select2.full.min.js"></script>
-<!-- Bootstrap4 Duallistbox -->
-<script src="<?php echo URL;?>public/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js"></script>
-<!-- InputMask -->
-<script src="<?php echo URL;?>public/plugins/moment/moment.min.js"></script>
-<script src="<?php echo URL;?>public/plugins/inputmask/jquery.inputmask.min.js"></script>
-<!-- date-range-picker -->
-<script src="<?php echo URL;?>public/plugins/daterangepicker/daterangepicker.js"></script>
-<!-- bootstrap color picker -->
-<script src="<?php echo URL;?>public/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js"></script>
-<!-- Tempusdominus Bootstrap 4 -->
-<script src="<?php echo URL;?>public/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
-<!-- Bootstrap Switch -->
-<script src="<?php echo URL;?>public/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
-<!-- BS-Stepper -->
-<script src="<?php echo URL;?>public/plugins/bs-stepper/js/bs-stepper.min.js"></script>
-<!-- dropzonejs -->
-<script src="<?php echo URL;?>public/plugins/dropzone/min/dropzone.min.js"></script>
+  <!-- jQuery -->
+<script src="<?php echo URL;?>public/plugins/jquery/jquery.min.js"></script>
   <!-- DataTables  & Plugins -->
 <script src="<?php echo URL;?>public/plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="<?php echo URL;?>public/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js"></script>
@@ -1071,86 +982,44 @@ Keep the copy of this Incident Record Form (IRF). An update of the progress of t
 <script src="<?php echo URL;?>public/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
 <script src="<?php echo URL;?>public/plugins/datatables-buttons/js/buttons.print.min.js"></script>
 <script src="<?php echo URL;?>public/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
-<!-- <script src="<?php echo URL;?>public/js/plugins/printThis.json"></script>
-<script src="<?php echo URL;?>public/js/plugins/printThis.js"></script> -->
+
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-<!-- Components -->
-<script src="<?php echo URL;?>public/js/components/libraries.js"></script>
+
+<!-- Select2 -->
+<script src="<?php echo URL; ?>public/plugins/select2/js/select2.full.min.js"></script>
+ <!-- BAR CHART -->
+   <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.bundle.min.js'></script>
 <!-- PDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.0/jspdf.umd.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
 <!-- buttons for pdf.etc -->
 <script src="<?php echo URL;?>public/plugins/datatables-buttons/js/dataTables.buttons.min.js"></script>
-<script>
-  AOS.init();
-</script>
-<script>
-//YEAR DROPDOWN
-let dateDropdown = document.getElementById('annual1');
 
-    let currentYear = new Date().getFullYear();
-    let earliestYear = 1970;
+<script src="<?php echo URL;?>public/js/components/dashboardss.js"></script>
 
-    while (currentYear >= earliestYear) {
-      let dateOption = document.createElement('option');
-      dateOption.text = currentYear;
-      dateOption.value = currentYear;
-      dateDropdown.add(dateOption);
-      currentYear -= 1;
-    }
-select.value = new Date().getFullYear();
+     <script>
+       // Define the download button click event handler
+  document.getElementById("downloadBtn").addEventListener("click", function() {
+    // Get the modal content element
+    var modalContent = document.querySelector("#myModal .modal-content");
 
-   $(document).ready(function() {
-        $('#map').click(function(e) {
-          // Get the x and y coordinates of the mouse click relative to the SVG element
-          var x = e.pageX - $('#map').offset().left;
-          var y = e.pageY - $('#map').offset().top;
-          // Create a new circle element at the clicked point
-          var circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-          circle.setAttribute("cx", x);
-          circle.setAttribute("cy", y);
-          circle.setAttribute("r", 5);
-          circle.setAttribute("fill", "red");
-          // Add the circle element to the SVG map
-          $('#map').append(circle);
-          // Output the coordinates of the clicked point
-          console.log('Clicked on point (' + x + ', ' + y + ')');
-        });
-      });
-
-  $(document).ready(function () {
-    $('#example9').DataTable();
-});
-
-  var nav_subname = document.getElementById("nav_subname");
-    nav_subname.textContent = "Library";
-
-    var nav_name = document.getElementById("nav_name");
-    nav_name.textContent = "Library";
-</script> 
-<script>
-
-  $(function () {
-    $("#example4").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["excel", "pdf", "print", "csv"]
-    }).buttons().container().appendTo('#example4_wrapper .col-md-6:eq(0)');
-    $('#example2').DataTable({
-      "paging": true,
-      "lengthChange": false,
-      "searching": false,
-      "ordering": true,
-      "info": true,
-      "autoWidth": false,
-      "responsive": true,
+    // Use html2canvas to create a canvas from the modal content element
+    html2canvas(modalContent).then(function(canvas) {
+      // Use jsPDF to create a PDF document and add the canvas as an image
+      var doc = new jsPDF();
+      doc.addImage(canvas.toDataURL(), "PNG", 0, 0, doc.internal.pageSize.getWidth(), doc.internal.pageSize.getHeight());
+      
+      // Save the PDF document
+      doc.save("modal.pdf");
     });
   });
 
   $(function () {
-    $("#example6").DataTable({
-      "responsive": true, "lengthChange": false, "autoWidth": false,
-      "buttons": ["excel", "pdf", "print", "csv"]
-    }).buttons().container().appendTo('#example6_wrapper .col-md-6:eq(0)');
+    $("#example4").DataTable({
+      "responsive": true, "lengthChange": false, "searching": false, "autoWidth": false,
+      "buttons": []
+    }).buttons().container().appendTo('#example4_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,
       "lengthChange": false,
@@ -1182,46 +1051,11 @@ function printElement(elem) {
     window.print();
 }
 
-  // Select all checkboxes
-const selectAll = document.getElementById('select-all');
-const checkboxes = document.querySelectorAll('.checkbox');
-selectAll.addEventListener('click', () => {
-  checkboxes.forEach((checkbox) => {
-    checkbox.checked = selectAll.checked;
-  });
-});
-
-// Check if all checkboxes are checked
-function checkIfAllChecked() {
-  var allChecked = true;
-  checkboxes.forEach((checkbox) => {
-    if (!checkbox.checked) {
-      allChecked = false;
-    }
-  });
-  selectAll.checked = allChecked;
-}
-
-// Add event listeners to each checkbox
-checkboxes.forEach((checkbox) => {
-  checkbox.addEventListener('click', checkIfAllChecked);
-});
-
-// Add event listener to each checkbox
-// checkboxes.forEach((checkbox) => {
-//   checkbox.addEventListener('change', () => {
-//     // Get all checked checkboxes
-//     const checkedCheckboxes = document.querySelectorAll('table tbody input[type="checkbox"]:checked');
-//     // Loop through checked checkboxes and log their values
-//     checkedCheckboxes.forEach((checkedCheckbox) => {
-//       console.log(checkedCheckbox.value);
-//     });
-//   });
-// });
+  
 
 // PRINT PDF
 
-   // Define the download button click event handler
+  // Define the download button click event handler
   document.getElementById("downloadBtn").addEventListener("click", function() {
   // Get the modal content element
   var modalBody = document.querySelector("#exampleModal .modal-body");
@@ -1257,17 +1091,15 @@ checkboxes.forEach((checkbox) => {
   });
 });
 
-
-
-</script>
+  </script>
   <script type="text/javascript">
 
 
-    var nav_subname = document.getElementById("nav_subname");
-    nav_subname.textContent = "Library";
+    // var nav_subname = document.getElementById("nav_subname");
+    // nav_subname.textContent = "Library";
 
-    var nav_name = document.getElementById("nav_name");
-    nav_name.textContent = "Library";
+    // var nav_name = document.getElementById("nav_name");
+    // nav_name.textContent = "Library";
 
     function setActive(a,b){
       $.ajax({
@@ -1288,19 +1120,13 @@ checkboxes.forEach((checkbox) => {
     }
 
   </script>
-<script>
+<!-- <script>
   var link = document.getElementById("myLink");
   link.addEventListener("click", myFunction);
 
 function myFunction() {
-  var station_type = document.getElementById("station_type").value;
-  if(station_type == "Main Station"){
-    window.location = "libraries_main";
-  }
-  else{
     window.location = "libraries";
-  }
 }
-</script>
+</script> -->
 </body>
 </html>

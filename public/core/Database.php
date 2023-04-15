@@ -1,4 +1,10 @@
 <?php
+/*
+ * Author: Dahir Muhammad Dahir
+ * Date: 26-April-2020 12:05 AM
+ * About: I will tell you later
+ */
+
 
 namespace fingerprint;
 
@@ -7,10 +13,6 @@ use mysqli;
 date_default_timezone_set("Africa/Lagos");
 
 class Database {
-    // private const host = "localhost";
-    // private const user = "friends";
-    // private const password = "Blottify_era123!";
-    // private const database = "blottify";
     private const host = "localhost";
     private const user = "root";
     private const password = "";
@@ -33,53 +35,26 @@ class Database {
         return $result;
     }
 
-    // function select($sql_query, $sql_param_type="", $param_array=array()){
-    //     if ($statement = $this->connection->prepare($sql_query)){
-    //         if (!empty($sql_param_type) && !empty($param_array)){
-    //             $this->bindQueryParams($statement, $sql_param_type, $param_array);
-    //         }
-
-    //         $statement->execute();
-    //         $sql_query_result = $statement->get_result();
-
-    //         if ($sql_query_result->num_rows > 0){
-    //             while ($row = $sql_query_result->fetch_assoc()){
-    //                 $result_set[] = $row;
-    //             }
-    //         }
-
-    //         if (!empty($result_set)){
-    //             return $result_set;
-    //         }
-    //     }
-    // }
-    
     function select($sql_query, $sql_param_type="", $param_array=array()){
-    if ($statement = $this->connection->prepare($sql_query)){
-        if (!empty($sql_param_type) && !empty($param_array)){
-            $this->bindQueryParams($statement, $sql_param_type, $param_array);
-        }
+        if ($statement = $this->connection->prepare($sql_query)){
+            if (!empty($sql_param_type) && !empty($param_array)){
+                $this->bindQueryParams($statement, $sql_param_type, $param_array);
+            }
 
-        $statement->execute();
-        $meta_data = $statement->result_metadata();
-        $fields = $meta_data->fetch_fields();
-        $bind_params = array();
-        foreach ($fields as $field) {
-            $bind_params[] = &$row[$field->name];
-        }
-        call_user_func_array(array($statement, 'bind_result'), $bind_params);
+            $statement->execute();
+            $sql_query_result = $statement->get_result();
 
-        $result_set = array();
-        while ($statement->fetch()) {
-            $result_set[] = array_map('utf8_encode', $row);
-        }
+            if ($sql_query_result->num_rows > 0){
+                while ($row = $sql_query_result->fetch_assoc()){
+                    $result_set[] = $row;
+                }
+            }
 
-        if (!empty($result_set)){
-            return $result_set;
+            if (!empty($result_set)){
+                return $result_set;
+            }
         }
     }
-}
-
 
     function insert($sql_query, $sql_param_type="", $param_array=array()){
         if ($statement = $this->connection->prepare($sql_query)){

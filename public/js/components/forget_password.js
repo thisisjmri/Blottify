@@ -24,15 +24,14 @@ $(document).ready(function(){
               })
             }
             else {
-              console.log(response);
               $(document).ready(function(){
               $.ajax({
                 url:'forget_password/emailOTP_first_attempt',
                 type: 'post',
                  cache: false,
                  success: function(server_reply) {
-                     console.log(server_reply);
-                  window.location="reset_password";
+                  console.log(server_reply);
+                  // window.location="reset_password";
                  },
                  error: function(xhr, status, error) {
                  alert('Cannot do action: '+console.error(xhr));

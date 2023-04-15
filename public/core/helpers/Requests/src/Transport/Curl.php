@@ -483,7 +483,7 @@ final class Curl implements Transport {
 		} else {
 			$this->headers .= $response;
 		}
-
+		
 		if (curl_errno($this->handle)) {
 			$error = sprintf(
 				'cURL error %s: %s',

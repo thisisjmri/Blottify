@@ -989,8 +989,6 @@ else {
   <script src="<?php echo URL;?>public/js/core/popper.min.js"></script>
   <script src="<?php echo URL;?>public/js/core/bootstrap.min.js"></script>
   <script src="<?php echo URL;?>public/js/plugins/perfect-scrollbar.min.js"></script>
-  <!-- Swal plugin -->
-  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>
   <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
@@ -1096,11 +1094,11 @@ function animateToTop(e) {
   <script type="text/javascript">
 
 
-    // var nav_subname = document.getElementById("nav_subname");
-    // nav_subname.textContent = "Library";
+    var nav_subname = document.getElementById("nav_subname");
+    nav_subname.textContent = "Library";
 
-    // var nav_name = document.getElementById("nav_name");
-    // nav_name.textContent = "Library";
+    var nav_name = document.getElementById("nav_name");
+    nav_name.textContent = "Library";
 
     function setActive(a,b){
       $.ajax({

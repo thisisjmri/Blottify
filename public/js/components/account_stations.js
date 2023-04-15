@@ -1,21 +1,3 @@
-$(document).ready(function() {
-  $('#masterfilter').on('click', function() {
-    if ($('#ustatus').is(':visible') && $('#ustation').is(':visible') && $('#gen').is(':visible')) {
-      // All elements are currently visible, so hide them
-      $('#ustatus').hide();
-      $('#ustation').hide();
-      $('#gen').hide();
-      $('#masterfilter').text('Show Filters');
-    } else {
-      // One or more elements are currently hidden, so show them
-      $('#ustatus').show();
-      $('#ustation').show();
-      $('#gen').show();
-      $('#masterfilter').text('Hide Filters');
-    }
-  });
-});
-
 //ADD STATION
 $(document).ready(function(){
   $('#stsave').on("click", function(){
@@ -56,25 +38,10 @@ $(document).ready(function(){
         },
          cache: false,
          success: function(server_reply) {
-              console.log(server_reply);
-                    if(server_reply==" success"){
-                        Swal.fire("SUCCESS!", server_reply, "success")
-                          .then((value)=>{
-                          if (value){
-                            window.location='account_stations';
-                          }
-                        });
-                    }
-                    else{
-                        Swal.fire(
-                          'Error!',
-                           server_reply,
-                          'error'
-                        )
-                    }
+          alert(server_reply);
          },
          error: function(xhr, status, error) {
-            alert('Cannot do action: '+console.error(xhr));
+         alert('Cannot do action: '+console.error(xhr));
          }
       });
     }
@@ -100,22 +67,7 @@ $(document).ready(function(){
         },
          cache: false,
          success: function(server_reply) {
-            console.log(server_reply);
-                    if(server_reply==" success"){
-                        Swal.fire("SUCCESS!", server_reply, "success")
-                          .then((value)=>{
-                          if (value){
-                            window.location='account_stations';
-                          }
-                        });
-                    }
-                    else{
-                        Swal.fire(
-                          'Error!',
-                           server_reply,
-                          'error'
-                        )
-                    }
+            alert(server_reply);
          },
          error: function(xhr, status, error) {
          alert('Cannot do action: '+console.error(xhr));

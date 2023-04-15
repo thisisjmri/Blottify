@@ -1,5 +1,4 @@
 <?php
-require 'PHPMailer/class.phpmailer.php';
 
 class Reset_Password_Model extends Model{
 	
@@ -16,18 +15,8 @@ class Reset_Password_Model extends Model{
 		for ($i = 0; $i < 6; $i++) {
 		  $otp .= $string[rand(0, $len - 1)];
 		}
-		
-		
-		
-        $session_id = session_id();
-        // $_SESSION[$session_id]['resetId'];
-        $id = $_SESSION['resetId'];
 
-	   // session_save_path("/home/zj84zuj4xqde/public_html/sessiondata");
-    //     session_start();
-    // //     $id = Session::get("resetId");
-    //     $session_id = session_id();
-    //     $_SESSION[$session_id]['resetId'];
+        $id = Session::get("resetId");
 
 		$dbh = new Database();
 		$stmt = $dbh->prepare("SELECT * FROM `users` WHERE `id`= :id");
@@ -39,8 +28,8 @@ class Reset_Password_Model extends Model{
 			echo "Error in fetching";
 		}
 		else{
-// 			$to      = $result['email'];
-			$subject = 'Blottify OTP Login Verification'; //change to blottify
+			$to      = $result['email'];
+			$subject = 'Blottify OTP Login Verification'; //change to blittify
 			 
 			// To send HTML mail, the Content-type header must be set
 			$headers  = 'MIME-Version: 1.0' . "\r\n";
@@ -52,7 +41,7 @@ class Reset_Password_Model extends Model{
 			    'X-Mailer: PHP/' . phpversion();
 			 
 			// Compose a simple HTML email message
-			$msg = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+			$message = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 			<html xmlns="http://www.w3.org/1999/xhtml">
 
 			<head>
@@ -99,46 +88,17 @@ class Reset_Password_Model extends Model{
 			</body>
 
 			</html>';
-    
-            $mail = new PHPMailer(true); 
-    
-        	$mail->IsSMTP();                           
-        	$mail->SMTPAuth   = false;                 
-        	$mail->Port       = 25;                    
-        	$mail->Host       = "localhost"; 
-        	$mail->Username   = "jbbangga@usep.edu.ph";   
-        	$mail->Password   = "Letsgonadayon123!";            
-        
-        	$mail->IsSendmail();  
-        
-        	$mail->From       = "jbbangga@usep.edu.ph";
-        	$mail->FromName   = "blottify.com";
-            
-        	$mail->AddAddress($result['email']);
-            $mail->Subject  = $subject;
-        	$mail->WordWrap   = 80; 
-        
-            $mail->MsgHTML($msg);
-        	$mail->IsHTML(true); 
-			
-			ini_set("sendmail_path", "/usr/sbin/sendmail -t -i");
 			 
 			// Sending email
-			//mail($to, $subject, $message, $headers)
-			if($mail->Send()){
+			if(mail($to, $subject, $message, $headers)){
 			    Session::set("otp", $otp);
 			} else{
 			    echo 'failed';
-			}	
+			}		
 		}
 	}
 
 	public function checkOTP(){
-        // $inpotp = $_SESSION[$session_id]['otp'];
-    //     session_start();
-	   // session_save_path("/home/zj84zuj4xqde/public_html/sessiondata");
-    //     session_start();
-        $session_id = session_id();
 	    $inpotp = $_POST['data'];
 	    $otp = Session::get("otp");
 

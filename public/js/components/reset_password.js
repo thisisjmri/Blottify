@@ -23,7 +23,7 @@ resend.addEventListener("click", function() {
     resend.disabled = true;
 
     // set a timer to re-enable the button after 5 seconds (5000 milliseconds)
-    let count = 180;
+    let count = 300;
     let endTime = Date.now() + count * 1000;
     localStorage.setItem("endTime", endTime);
     startTimer(count);
@@ -60,7 +60,7 @@ function startTimer(count) {
       type: 'post',
        cache: false,
        success: function(server_reply) {
-        console.log(server_reply);
+        
        },
        error: function(xhr, status, error) {
        alert('Cannot do action: '+console.error(xhr));

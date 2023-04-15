@@ -296,8 +296,8 @@ body {
                      <div class="row mt-3">
                         <div class="col-12 col-sm-6">
                            <label><span>Police Station</span><span style="color:red"> *</span></label>
-                           <select class="form-select" name="userstation" id="userstation">
-                            <option value="Enter Police Station" selected disabled></option>
+                           <select class="form-control" name="userstation" id="userstation">
+                            <option value="" selected disabled></option>
                                 <?php 
                                   for($i=0; $i<count($this->getStation); $i++){
                                     echo "<option value='".$this->getStation[$i]['id']."'>".$this->getStation[$i]['station_name']."</option>";
@@ -316,21 +316,19 @@ body {
                            <input class="form-control" type="date" id="bday">
                         </div>
                         <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-                           <label><span id="unEmail">Email Address</span><span id="start" style="color:red"> *</span><span id="warning" style="color:red"></span></label>
-                           <input class="form-control" type="text" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="example@mail.com" id="email">
+                           <label><span>Email Address</span><span style="color:red"> *</span></label>
+                           <input class="form-control" type="text" pattern="[^@\s]+@[^@\s]+\.[^@\s]+" placeholder="Email Address" id="email">
                         </div>
                      </div>
                      <div class="row mt-3">
                         <div class="col-12 col-sm-6">
                            <label><span>Mobile Number</span><span style="color:red"> *</span></label>
-                           <input class="form-control" type="text" pattern="[0-9]{11}" maxlength="11" minlength="11" id="contact" oninput="this.value = this.value.replace(/[^0-9]/g, '');" placeholder="09-XXX-XXXX" required>
-                            <div class="invalid-feedback">Please enter a valid 11-digit mobile number starting with "09".
-                            </div>    
+                           <input class="form-control" type="text" pattern="9\d*" maxlength="11" minlength="11" placeholder="+63" id="contact">
                         </div>
                         <div class="col-12 col-sm-6">
                            <label><span>Sex</span><span style="color:red"> *</span></label>
-                           <select class="form-select" name="sex" id="sex" placeholder="Departure">
-                              <option value="" selected disabled></options>
+                           <select class="form-control" name="sex" id="sex" placeholder="Departure">
+                              <option value="" selected disabled></option>
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
                            </select>
@@ -339,23 +337,15 @@ body {
                      <div class="row mt-3">
                       <div class="col-12 col-sm-12">
                            <label><span>Rank</span><span style="color:red"> *</span></label>
-                           <select class="form-select" name="rank" id="rank">
-                            <option value="" selected disabled></option>
-                                <?php 
-                                  for($a=0; $a<count($this->getRank); $a++){
-                                    echo "<option value='".$this->getRank[$a]['id']."'>".$this->getRank[$a]['rank_name']."</option>";
-                                  } 
-                                ?>
-                           </select>
-                      </div>
+                           <input class="form-control" id="rank" type="text" placeholder="Rank">
+                        </div>
                      </div>
                      <div class="button-row d-flex mt-4 justify-content-end">
                       <input class="form-control" type="hidden" id="husername">
-                        <input class="form-control" type="hidden" id="hemail">
-                          <div class="first"><button type="button" class="btn bg-gradient-warning ms-auto mb-0 js-btn-next justify-content-end" type="submit" id="proceed">Proceed</button>
+                        <div class="first"><button type="button" onclick="smoothScroll(document.getElementById('second'))" class="btn bg-gradient-warning ms-auto mb-0 js-btn-next justify-content-end" type="submit" id="proceed">Proceed</button>
                      </div>
-                    </div>
-                  </form>
+                     </div>
+                      </form>
 
                      <!--  <div class="container px-0 mt-2">
                       <div class="row ">
@@ -744,6 +734,48 @@ body {
   <script src="<?php echo URL;?>public/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
 
   <script>
+      $(function () {
+    $("#example4").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["excel", "pdf", "print", "csv"]
+    }).buttons().container().appendTo('#example4_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+
+  $(function () {
+  $("#example6").DataTable({
+    "responsive": true,
+    "lengthChange": false,
+    "autoWidth": false,
+    "buttons": [
+
+      { extend: "excel", className: "btn p-1 px-3 btn-dark" },
+      { extend: "pdf", className: "btn p-1 px-3 btn-dark" },
+      { extend: "print", className: "btn p-1 px-3 btn-dark" },
+      { extend: "csv", className: "btn p-1 px-3 btn-dark" }
+
+    ]
+  }).buttons().container().appendTo('#example6_wrapper .col-md-6:eq(0)');
+
+  $('#example').DataTable({
+    "paging": true,
+    "lengthChange": false,
+    "searching": false,
+    "ordering": true,
+    "info": true,
+    "autoWidth": false,
+    "responsive": true,
+  });
+});
+
     window.smoothScroll = function(target) {
     var scrollContainer = target;
     do { //find scroll container
@@ -769,6 +801,13 @@ body {
 
   </script>
   <script type="text/javascript">
+
+
+    var nav_subname = document.getElementById("nav_subname");
+    nav_subname.textContent = "Library";
+
+    var nav_name = document.getElementById("nav_name");
+    nav_name.textContent = "Library";
 
     function setActive(a){
       $.ajax({

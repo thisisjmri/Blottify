@@ -47,7 +47,7 @@ function enroll_fingerprint($pre_registered_fmd_array){
 function verify_fingerprint($pre_registered_fmd_string, $enrolled_fingers_array){
     $host = getenv('FP_CLIENT_SERVICE_HOST');
     $verify_url = "$host/coreComponents/verify.php";
-    
+   // echo "here:".$verify_url;
     $data = [
         "data" => json_encode([
             "pre_enrolled_finger_data" => $pre_registered_fmd_string,

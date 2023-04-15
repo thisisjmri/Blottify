@@ -25,9 +25,8 @@ $pre_reg_fmd_list = array($fmd1, $fmd2, $fmd3, $fmd4);
 $reg_fmd_list = array($reg_fmd1, $reg_fmd2);
 
 
-$client = new Fingerprint\FingerPrintClient("49.149.99.170:4134", [
+$client = new Fingerprint\FingerPrintClient("localhost:4134", [
     "credentials" => Grpc\ChannelCredentials::createInsecure(),
-    // "credentials" => Grpc\ChannelCredentials::createSsl(),
 ]);
 
 

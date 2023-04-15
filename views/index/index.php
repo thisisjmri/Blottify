@@ -10,8 +10,60 @@
  =========================================================
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software. -->
+<?php
+// // $ch = curl_init("http://68.183.202.89:5555");    // initialize curl handle
+// // curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+// // $data = curl_exec($ch);
+// // print($data);
+// $url='http://68.183.202.89:5555';
+// $curl = curl_init();
+// curl_setopt_array($curl, array(
+//         CURLOPT_URL => $url,
+//         CURLOPT_RETURNTRANSFER => true,
+//         CURLOPT_ENCODING => '',
+//         CURLOPT_MAXREDIRS => 10,
+//         CURLOPT_TIMEOUT => 1000,
+//         CURLOPT_CONNECTTIMEOUT => 1000,
+//         CURLOPT_FOLLOWLOCATION => true,
+//         CURLOPT_POST=>true
+//     )
+// );
+// $res=curl_exec( $curl );
+// curl_close( $curl );
+
+// printf('<pre>%s</pre>',print_r( $res, true ));
+
+// phpinfo();
+
+
+// $curl = curl_init();
+
+// curl_setopt_array($curl, array(
+//   CURLOPT_URL => 'http://68.183.202.89:5555',
+//   CURLOPT_RETURNTRANSFER => true,
+//   CURLOPT_ENCODING => '',
+//   CURLOPT_MAXREDIRS => 10,
+//   CURLOPT_TIMEOUT => 0,
+//   CURLOPT_FOLLOWLOCATION => true,
+//   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//   CURLOPT_CUSTOMREQUEST => 'GET',
+//   CURLOPT_VERBOSE=> true
+
+// ));
+
+
+// $response = curl_exec($curl);
+
+
+// $info = curl_getinfo($curl);
+// var_dump($info);
+
+// curl_close($curl);
+// echo $response;
+?>
 <!DOCTYPE html>
 <html lang="en" itemscope itemtype="http://schema.org/WebPage">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -79,7 +131,7 @@ body {
               </div>
               <div class="card-footer text-center pt-0 px-lg-2 px-1">
                 <p class="mb-4 text-sm mx-auto">
-                  <a href="<?php echo URL;?>forget_password" class="text-warning text-gradient font-weight-bold">Forget Password</a>
+                  <a href="<?php echo URL;?>views/forget_password/forget_password.html" class="text-warning text-gradient font-weight-bold">Forget Password</a>
                 </p>
               </div>
             </div>

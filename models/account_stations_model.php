@@ -222,12 +222,12 @@ class Account_Stations_Model extends Model{
                 $value2 = $hexCode[$i];
                 $stmt2->execute();
 
-                echo "Incident Type Added Successfully";
+                echo "Crime Type was added successfully";
             
         }
         else{
             //error
-            echo "Incident Type Already Taken";
+            echo "Crime Type is already taken";
         }
         
     }

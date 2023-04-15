@@ -19,6 +19,7 @@ class Index extends Controller{
 
 	function index(){
 		$this->view->render('index/index');
+		header('location: index');
 	}
 	
 }

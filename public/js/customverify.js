@@ -172,7 +172,7 @@ function beginEnrollment(){
 function beginIdentification(){
     setReaderSelectField("verifyReaderSelect");
     myReader.setStatusField("verifyIdentityStatusField");
-    showMessage("beginIdentification");
+    // showMessage("beginIdentification");
 }
 
 function setReaderSelectField(fieldName){
@@ -181,7 +181,7 @@ function setReaderSelectField(fieldName){
 }
 
 function showMessage(message, message_type="error"){
-    console.log(message);
+    // console.log(message);
     let types = new Map();
     types.set("success", 'text-danger');
     types.set("error", 'text-danger');
@@ -211,7 +211,7 @@ function captureForIdentify() {
     storeUserID();
     myReader.reader.startCapture();
     showNextNotEnrolledItem();
-    showMessage("captureForIdentify");
+    // showMessage("captureForIdentify");
 }
 
 /**
@@ -226,7 +226,7 @@ function readyForEnroll(){
 * @returns {boolean}
 */
 function readyForIdentify() {
-    showMessage("readyForIdentify");
+    // showMessage("readyForIdentify");
     return ((document.getElementById("userIDVerify").value !== "") && (document.getElementById("verifyReaderSelect").value !== "Select Fingerprint Reader"));
 }
 
@@ -529,12 +529,77 @@ function serverEnroll(){
     xhttp.send(payload1);
 }
 
+function setAttempts(server_reply){
+    var id = document.getElementById("userIDVerify").value;
+    // console.log(server_reply);
+    var lastAttemptTime = new Date(Date.parse(server_reply));
+    var currentTime = new Date();
+
+    // Calculate the remaining time before the user can attempt to log in again
+    var remainingTime = (lastAttemptTime.getTime() / 1000) + 60 - (currentTime.getTime() / 1000);
+    // console.log(remainingTime);
+    if (remainingTime > 0) {
+        var errorMessage = "You have exceeded the maximum number of login attempts. Please try again in <span id='remainingTime'>" + remainingTime.toFixed(0) + "</span> seconds.";
+        showMessage(errorMessage);
+        clearCapture();
+
+        // Update the remaining time every second
+        var intervalId = setInterval(function() {
+            remainingTime--;
+            if (remainingTime > 0) {
+                document.getElementById("remainingTime").textContent = remainingTime.toFixed(0);
+            } 
+            else {
+                clearInterval(intervalId);
+                $.ajax({
+                    url:'biometric/resetBio',
+                    type: 'post',
+                    data: {
+                        id : id
+                    },
+                    cache: false,
+                    success: function(server_reply) {
+                        beginIdentification();
+                    },
+                    error: function(xhr, status, error) {
+                        alert('Cannot do action: '+console.error(xhr));
+                    }
+                });
+            }
+        }, 1000);
+    }
+    else{
+        $.ajax({
+            url:'biometric/setAttempts',
+            type: 'post',
+            data: {
+                id : id
+            },
+            cache: false,
+            success: function(server_reply) {
+                if(server_reply=="2"){
+                    showMessage("Identification Failed! Attempts remaining: "+server_reply);
+                }
+                else if(server_reply=="1"){
+                    showMessage("Identification Failed! Attempts remaining: "+server_reply);
+                }
+                else{
+                    setAttempts(server_reply);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert('Cannot do action: '+console.error(xhr));
+            }
+        });
+    }
+}
+
 function serverIdentify() {
-    showMessage("serverIdentify");
+    // showMessage("serverIdentify");
     if(!readyForIdentify()){
         return;
     }
-    console.log("inside");
+
     let detailElement = document.getElementById("userDetails");
     let successMessage = "Identification Successful!";
     let failedMessage = "Identification Failed!";
@@ -546,40 +611,38 @@ function serverIdentify() {
     let payload = `data=${firstPayload}`;
 
     var id = document.getElementById("userIDVerify").value;
-    
-                let xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState === 4 && this.status === 200){
-                        if(this.responseText !== null && this.responseText !== ""){
-                            console.log(this.responseText);
-                            let response = JSON.parse(this.responseText);
-                            if(response !== "failed" && response !== null){
-                                showMessage(successMessage, "success");
-                                console.log("verified");
-                                $.ajax({
-                                    url:'biometric/addLogs',
-                                    type: 'post',
-                                    data: {
-                                        id : id
-                                    },
-                                     cache: false,
-                                     success: function(server_reply) {
-                                        console.log(server_reply);
-                                        window.location = server_reply;
-                                     },
-                                     error: function(xhr, status, error) {
-                                     alert('Cannot do action: '+console.error(xhr));
-                                     }
-                                });
-                            }
-                            else {
-                                showMessage(`${failedMessage} ${this.responseText}`);
-                            }
-                        }
-                    }
-                };
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200){
+            if(this.responseText !== null && this.responseText !== ""){
+                console.log(this.responseText);
+                let response = JSON.parse(this.responseText);
+                if(response !== "failed" && response !== null){
+                    showMessage(successMessage, "success");
+                    $.ajax({
+                        url:'biometric/addLogs',
+                        type: 'post',
+                        data: {
+                            id : id
+                        },
+                         cache: false,
+                         success: function(server_reply) {
+                            console.log(server_reply);
+                            window.location = server_reply;
+                         },
+                         error: function(xhr, status, error) {
+                         alert('Cannot do action: '+console.error(xhr));
+                         }
+                    });
+                }
+                else {
+                    showMessage(`${failedMessage} ${this.responseText}`);
+                }
+            }
+        }
+    };
 
-                xhttp.open("POST", "/BLOTTIFY/public/core/verify.php", true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-                xhttp.send(payload);
+    xhttp.open("POST", "/BLOTTIFY/public/core/verify.php", true);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xhttp.send(payload);
 }

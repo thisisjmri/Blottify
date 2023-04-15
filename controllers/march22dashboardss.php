@@ -12,19 +12,16 @@ class Dashboardss extends Controller{
 			header('location: login');
 			exit;
 		}else if ($type == 'ADMIN'){
-			header('location: admin_dashboardss');
+			header('location: admin_blotter');
 		}
 	}
 
 	function index(){
 		$this->view->getBlotter = $this->model->getBlotter();
 		$this->view->getBlotter1 = $this->model->getBlotter1();
-		$this->view->getBlotter2 = $this->model->getBlotter2();
 		$this->view->getNotif = $this->model->getNotif();
 		$this->view->getStation = $this->model->getStation();
-		$this->view->getRank = $this->model->getRank();
 		$this->view->getUser = $this->model->getUser();
-		$this->view->getCountSubstat = $this->model->getCountSubstat();
 
 		$this->view->render('dashboardss/index');
 	}
